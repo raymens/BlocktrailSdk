@@ -13,9 +13,21 @@ let main argv =
     printfn "%i" transaction.confirmations
 
     let block = client.GetBlock transaction.block_hash
-    let transactions = client.BlockTransactions block.hash
+    let transactions = client.BlockTransactions block.hash 0 100 "asc"
     
-    printfn "%i transactions in block %s" transactions.total block.hash
+    printfn "%i transactions in block %s" transactions.Total block.hash
+    printfn "Current page: %i. input value: %i" transactions.Page transactions.Data.[0].total_input_value
+
+    let nextTransactions = transactions.NextPage()
+
+    printfn "Current page: %i. input value: %i" nextTransactions.Page nextTransactions.Data.[0].total_input_value
+
+    let allblocks = client.AllBlocks 0 100 "asc"
+    printfn "block %s is the first on page %i"  allblocks.Data.[0].hash allblocks.Page
+
+    let nextrow = allblocks.NextPage()
+
+    printfn "block %s is the first on page %i"  nextrow.Data.[0].hash nextrow.Page
 
 
     System.Console.ReadLine() |> ignore

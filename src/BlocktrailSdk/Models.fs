@@ -95,3 +95,9 @@ type Paging<'T> =
       per_page : int
       total : int64
       data : array<'T> }
+
+type Request<'T> = 
+    { url : string
+      page : int
+      limit : int
+      sort_dir : string }
