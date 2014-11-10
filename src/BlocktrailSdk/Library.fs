@@ -21,12 +21,15 @@ type Response<'T>(id, sortDir, data : Paging<'T>, reqfunc) =
     member val Data = data.data with get
     member val private Raw = data with get
     member val private SortDir = sortDir with get
+    member val Limit = data.per_page with get
     member val Total = data.total with get
     member val Page = data.current_page with get
 
     member x.PrevPage() : Response<'T> = reqfunc id (x.Raw.current_page - 1) x.Raw.per_page x.SortDir
 
     member x.NextPage() : Response<'T> = reqfunc id (x.Raw.current_page + 1) x.Raw.per_page x.SortDir
+
+    member x.GetPage page : Response<'T> = reqfunc id page x.Raw.per_page x.SortDir
 
 /// <summary>
 /// Client to explore the blockchain using the Blocktrail Data API
@@ -55,7 +58,7 @@ type BlocktrailDataClient(apiKey : string) =
     /// <summary>
     /// Get a specific transaction
     /// </summary>
-    member x.GetTransaction transaction = 
+    member x.Transaction transaction = 
         convertToObject<Transaction> (x.Request (sprintf "transaction/%s" transaction) [])
     
     /// <summary>
@@ -78,7 +81,7 @@ type BlocktrailDataClient(apiKey : string) =
     /// <summary>
     /// Get a specific block
     /// </summary>
-    member x.GetBlock block = convertToObject<Block> (x.Request (sprintf "block/%s" block) [])
+    member x.Block block = convertToObject<Block> (x.Request (sprintf "block/%s" block) [])
     
     /// <summary>
     /// Get the unspent outputs of a specific address

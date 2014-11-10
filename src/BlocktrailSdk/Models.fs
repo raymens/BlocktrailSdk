@@ -41,8 +41,8 @@ type Transaction =
       high_priority : bool
       enough_fee : bool
       contains_dust : bool
-      inputs : TransactionInput list
-      outputs : TransactionOutput list }
+      inputs : TransactionInput array
+      outputs : TransactionOutput array }
 
 type Address = 
     { address : string
