@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Models.fs" />
     <Compile Include="Library.fs" />
+    <Compile Include="NewImplementation.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
   </ItemGroup>

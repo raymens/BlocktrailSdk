@@ -2,7 +2,7 @@ module BlocktrailSdk.Tests
 
 open BlocktrailSdk
 open NUnit.Framework
-
+(*
 [<Test>]
 let ``5<btc> returns 500000000<sat>``() = 
     let input = 5m<BlocktrailClient.btc>
@@ -27,3 +27,4 @@ let ``330000<sat> returns 0.0033<btc>``() =
     let input = 330000<BlocktrailClient.sat>
     let result = BlocktrailClient.toBTC input
     Assert.AreEqual(0.0033m, result)
+*)

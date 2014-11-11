@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,27 +12,19 @@ namespace BlocktrailSdk.SampleCSharp
         static void Main(string[] args)
         {
             string apiKey = "INSERT_API_KEY_HERE";
-            
 
             var client = new BlocktrailDataClient(apiKey);
+            var block = client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
+         
+            int i = 0;
 
-            var transaction = client.Transaction("c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad");
-            var block = client.Block(transaction.block_hash);
-            var address = client.Address(transaction.inputs[0].address);
-
-            Console.WriteLine(transaction.hash);
-            Console.WriteLine(block.hash);
-            Console.WriteLine(address.hash160);
-
-            var blockTransacctions = client.BlockTransactions(block.hash, 0, 100, "asc");
-
-            Console.WriteLine(blockTransacctions.Total + " " + blockTransacctions.Page + " " + blockTransacctions.Limit);
-
-            var nextPage = blockTransacctions.NextPage();
-            var samePage = blockTransacctions.GetPage(2);
-
-            Console.WriteLine(nextPage.Data[0].hash);
-            Console.WriteLine(samePage.Data[0].hash);
+            for(var transactions = block.Transactions(0, 200); transactions.NextPageAvailable(); transactions = transactions.NextPage())
+            {
+                foreach (var item in transactions)
+                {
+                    Console.WriteLine(String.Format("[{0}/{1}] {2}", ++i, transactions.Total, item.hash));
+                }
+            }
 
             Console.Read();
         }

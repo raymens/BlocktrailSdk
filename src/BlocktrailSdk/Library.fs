@@ -1,4 +1,6 @@
+
 namespace BlocktrailSdk
+(*
 
 /// [omit]
 module internal Helpers = 
@@ -30,6 +32,8 @@ type Response<'T>(id, sortDir, data : Paging<'T>, reqfunc) =
     member x.NextPage() : Response<'T> = reqfunc id (x.Raw.current_page + 1) x.Raw.per_page x.SortDir
 
     member x.GetPage page : Response<'T> = reqfunc id page x.Raw.per_page x.SortDir
+
+
 
 /// <summary>
 /// Client to explore the blockchain using the Blocktrail Data API
@@ -131,3 +135,4 @@ module BlocktrailClient =
     
     let toBTC (num : int<sat>) : decimal<btc> = ((decimal) num / 100000000m) * 1.0m<btc>
     let toSatoshi (num : decimal<btc>) : int<sat> = Decimal.ToInt32((decimal) num * 100000000m) * 1<sat>
+*)
