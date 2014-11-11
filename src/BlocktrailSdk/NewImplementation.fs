@@ -27,6 +27,12 @@ module internal BTClientBase =
         let url = sprintf "block/latest"
         request url []
 
+    let getAllBlocksResponse page limit sort_dir = 
+        let url = sprintf "all-blocks"
+        request url [ "page", string page
+                      "limit", string limit
+                      "sort_dir", sort_dir ]
+
     let getBlockResponse block = 
         let url = sprintf "block/%s" block
         request url []
@@ -104,6 +110,9 @@ type TransactionRequest() =
     member val high_priority = false with get, set
     member val enough_fee = false with get, set
     member val contains_dust = false with get, set
+    member val inputs = null : TransactionInput array with get, set
+    member val outputs = null : TransactionOutput array with get, set
+
 
 type BlockRequest() =
     member val hash = "" with get, set
@@ -133,9 +142,9 @@ type BlockRequest() =
 
         let response = BTClientBase.getBlockTransactionsResponse x.hash page limit sort_dir
 
-        let convertedResponse = convertToObject<Paging<Transaction>> response
+        let convertedResponse = convertToObject<Paging<TransactionRequest>> response
 
-        new PagingResponse<Transaction>(x.hash, sort_dir, convertedResponse, BTClientBase.getBlockTransactionsResponse)
+        new PagingResponse<TransactionRequest>(x.hash, sort_dir, convertedResponse, BTClientBase.getBlockTransactionsResponse)
 
     /// <summary>
     /// Get transactions of this block (paginated) (C# interop)
@@ -183,3 +192,17 @@ type BlocktrailDataClient(apiKey : string) =
     member public x.GetLastBlock() = 
         let response = BTClientBase.getLastBlockResponse()
         convertToObject<BlockRequest> response
+
+    /// <summary>
+    /// Get all blocks
+    /// </summary>
+    member public x.GetAllBlocks(page : int, limit : int) = 
+        let sort_dir = "asc"
+
+        let response = BTClientBase.getAllBlocksResponse page limit sort_dir
+        let convertedResponse = convertToObject<Paging<BlockRequest>> response
+
+        // create altered function because PagingResponse requires too many args
+        let altered = fun x y z b -> BTClientBase.getAllBlocksResponse y z b
+
+        new PagingResponse<BlockRequest>(String.Empty, sort_dir, convertedResponse, altered)
