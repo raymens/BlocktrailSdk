@@ -155,7 +155,21 @@ module Models =
             x.GetPage (x.Raw.current_page + 1)
 
 
-     type TransactionRequest() =
+    type AddressRequest() = 
+        member val address = "" with get, set
+        member val hash160 = "" with get, set
+        member val balance = 0L with get, set
+        member val received = 0L with get, set
+        member val sent = 0L with get, set
+        member val unconfirmed_received = 0 with get, set
+        member val unconfirmed_sent = 0 with get, set
+        member val unconfirmed_transactions = 0 with get, set
+        member val total_transactions_in = 0 with get, set
+        member val total_transactions_out = 0 with get, set
+        member val category = "" with get, set
+        member val tag = "" with get, set
+
+    type TransactionRequest() =
         member val hash = "" with get, set
         member val first_seen_at = "" with get, set
         member val last_seen_at = "" with get, set

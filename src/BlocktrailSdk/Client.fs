@@ -39,3 +39,10 @@ module Client =
     let public GetTransaction trans =
         let response = getTransactionResponse trans
         convertToObject<TransactionRequest> response   
+
+    /// <summary>
+    /// Get a specific address
+    /// </summary>
+    let public GetAddress addr =
+        let response = getAddressResponse addr
+        convertToObject<AddressRequest> response  

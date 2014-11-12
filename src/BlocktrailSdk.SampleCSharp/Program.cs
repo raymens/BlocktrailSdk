@@ -28,6 +28,12 @@ namespace BlocktrailSdk.SampleCSharp
             Console.WriteLine(block.hash);
             Console.WriteLine(block2.hash);
 
+            var addr = transaction.inputs[0].address; // null
+
+            var addrObj = BlocktrailSdk.Client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
+
+            Console.WriteLine(addrObj.balance);
+
 
             //Console.WriteLine(block.Transactions(0, 1)[0].outputs.Count());
 

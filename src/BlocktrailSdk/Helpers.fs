@@ -41,3 +41,7 @@ module internal Helpers =
     let getTransactionResponse trans =
         let url = sprintf "transaction/%s" trans
         request url []
+
+    let getAddressResponse addr =
+        let url = sprintf "address/%s" addr
+        request url []
