@@ -1,5 +1,5 @@
 
-namespace BlocktrailSdk
+namespace BlocktrailSdkOld
 (*
 
 /// [omit]

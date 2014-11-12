@@ -43,9 +43,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.fs" />
+    <Compile Include="Helpers.fs" />
     <Compile Include="Models.fs" />
-    <Compile Include="Library.fs" />
-    <Compile Include="NewImplementation.fs" />
+    <Compile Include="Client.fs" />
+    <Compile Include="OldLibrary.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
   </ItemGroup>

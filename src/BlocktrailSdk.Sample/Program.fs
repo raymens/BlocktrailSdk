@@ -4,8 +4,8 @@ let main argv =
     
     let apiKey = "INSERT_YOUR_API_KEY_HERE";
 
-    let client = new NewImplementation.BlocktrailDataClient(apiKey);
-    let block = client.GetBlock "00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947"
+    BlocktrailSdk.Config.ApiKey <- apiKey
+    let block = BlocktrailSdk.Client.GetBlock "00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947"
     //let block = oldblock.NextBlock()
     //let block = oldblock
     
