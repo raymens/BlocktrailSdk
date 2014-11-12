@@ -10,12 +10,12 @@ let main argv =
     //let block = oldblock
     
 
-    let mutable transactions = block.Transactions(limit0 = 400)
+    let mutable transactions = block.GetTransactions(limit0 = 400)
     let mutable i = 0
 
     for trans in transactions do
         i <- i + 1
-        printfn "[%i/%i] %s" i transactions.Total trans.hash
+        printfn "[%i/%i] %s" i transactions.Total trans.Hash
 
 
     while transactions.NextPageAvailable() do
@@ -23,7 +23,7 @@ let main argv =
 
         for trans in transactions do
             i <- i + 1
-            printfn "[%i/%i] %s" i transactions.Total trans.hash
+            printfn "[%i/%i] %s" i transactions.Total trans.Hash
             
 
         printfn "Press key to fetch next row of transactions"

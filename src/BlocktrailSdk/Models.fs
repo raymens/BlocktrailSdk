@@ -96,119 +96,175 @@ module Models =
             x.GetPage (x.Raw.current_page + 1)
 
 
-    type AddressRequest() = 
-        member val address = "" with get, set
-        member val hash160 = "" with get, set
-        member val balance = 0L with get, set
-        member val received = 0L with get, set
-        member val sent = 0L with get, set
-        member val unconfirmed_received = 0 with get, set
-        member val unconfirmed_sent = 0 with get, set
-        member val unconfirmed_transactions = 0 with get, set
-        member val total_transactions_in = 0 with get, set
-        member val total_transactions_out = 0 with get, set
-        member val category = "" with get, set
-        member val tag = "" with get, set
+    type Address() = 
+        [<JsonProperty("address")>]
+        member val Address = "" with get, set
+        [<JsonProperty("hash160")>]
+        member val Hash160 = "" with get, set
+        [<JsonProperty("balance")>]
+        member val Balance = 0L with get, set
+        [<JsonProperty("received")>]
+        member val Received = 0L with get, set
+        [<JsonProperty("sent")>]
+        member val Sent = 0L with get, set
+        [<JsonProperty("unconfirmed_received")>]
+        member val UnconfirmedReceived = 0 with get, set
+        [<JsonProperty("unconfirmed_sent")>]
+        member val UnconfirmedSent = 0 with get, set
+        [<JsonProperty("unconfirmed_transactions")>]
+        member val UnconfirmedTransactions = 0 with get, set
+        [<JsonProperty("total_transactions_in")>]
+        member val TotalTransactionsIn = 0 with get, set
+        [<JsonProperty("total_transactions_out")>]
+        member val TotalTransactionsOut = 0 with get, set
+        [<JsonProperty("category")>]
+        member val Category = "" with get, set
+        [<JsonProperty("tag")>]
+        member val Tag = "" with get, set
 
-    type TransactionRequest() =
-        member val hash = "" with get, set
-        member val first_seen_at = "" with get, set
-        member val last_seen_at = "" with get, set
-        member val block_height = 0 with get, set
-        member val block_time = "" with get, set
-
+    type Transaction() =
+        [<JsonProperty("hash")>]
+        member val Hash = "" with get, set
+        [<JsonProperty("first_seen_at")>]
+        member val FirstSeenAt = "" with get, set
+        [<JsonProperty("last_seen_at")>]
+        member val LastSeenAt = "" with get, set
+        [<JsonProperty("block_height")>]
+        member val BlockHeight = 0 with get, set
+        [<JsonProperty("block_time")>]
+        member val BlockTime = "" with get, set
         [<JsonProperty("block_hash")>]
         member val BlockHash = "" with get, set
-        member val confirmations = 0 with get, set
-        member val is_coinbase = false with get, set
-        member val estimated_value = 0L with get, set
-        member val total_input_value = 0L with get, set
-        member val total_output_value = 0L with get, set
-        member val total_fee = 0 with get, set
-        member val estimated_change = Nullable.op_Implicit 0L : Nullable<int64> with get, set
-        member val estimated_change_address = "" with get, set
-        member val high_priority = Nullable.op_Implicit false with get, set
-        member val enough_fee = Nullable.op_Implicit false with get, set
-        member val contains_dust = Nullable.op_Implicit false with get, set
-        member val inputs = null : TransactionInput array with get, set
-        member val outputs = null : TransactionOutput array with get, set
+        [<JsonProperty("confirmations")>]
+        member val Confirmations = 0 with get, set
+        [<JsonProperty("is_coinbase")>]
+        member val IsCoinbase = false with get, set
+        [<JsonProperty("estimated_value")>]
+        member val EstimatedValue = 0L with get, set
+        [<JsonProperty("total_input_value")>]
+        member val TotalInputValue = 0L with get, set
+        [<JsonProperty("total_output_value")>]
+        member val TotalOutputValue = 0L with get, set
+        [<JsonProperty("total_fee")>]
+        member val TotalFee = 0 with get, set
+        [<JsonProperty("estimated_change")>]
+        member val EstimatedChange = Nullable.op_Implicit 0L : Nullable<int64> with get, set
+        [<JsonProperty("estimated_change_address")>]
+        member val EstimatedChangeAddress = "" with get, set
+        [<JsonProperty("high_priority")>]
+        member val HighPriority = Nullable.op_Implicit false with get, set
+        [<JsonProperty("enough_fee")>]
+        member val EnoughFee = Nullable.op_Implicit false with get, set
+        [<JsonProperty("contains_dust")>]
+        member val ContainsDust = Nullable.op_Implicit false with get, set
+        [<JsonProperty("inputs")>]
+        member val Inputs = null : TransactionInput array with get, set
+        [<JsonProperty("outputs")>]
+        member val Outputs = null : TransactionOutput array with get, set
 
-    type BlockTransactionRequest() =
-        member val hash = "" with get, set
-        member val time = "" with get, set
-        member val confirmations = 0 with get, set
-        member val is_coinbase = false with get, set
-        member val estimated_value = 0L with get, set
-        member val total_input_value = 0L with get, set
-        member val total_output_value = 0L with get, set
-        member val total_fee = 0 with get, set
-        member val estimated_change = Nullable.op_Implicit 0L : Nullable<int64> with get, set
-        member val estimated_change_address = "" with get, set
-        member val inputs = null : TransactionInput array with get, set
-        member val outputs = null : TransactionOutput array with get, set
+    type BlockTransaction() =
+        [<JsonProperty("hash")>]
+        member val Hash = "" with get, set
+        [<JsonProperty("time")>]
+        member val Time = "" with get, set
+        [<JsonProperty("confirmations")>]
+        member val Confirmations = 0 with get, set
+        [<JsonProperty("is_coinbase")>]
+        member val IsCoinbase = false with get, set
+        [<JsonProperty("outputsestimated_value")>]
+        member val EstimatedValue = 0L with get, set
+        [<JsonProperty("total_input_value")>]
+        member val TotalInputValue = 0L with get, set
+        [<JsonProperty("total_output_value")>]
+        member val TotalOutputValue = 0L with get, set
+        [<JsonProperty("total_fee")>]
+        member val TotalFee = 0 with get, set
+        [<JsonProperty("estimated_change")>]
+        member val EstimatedChange = Nullable.op_Implicit 0L : Nullable<int64> with get, set
+        [<JsonProperty("estimated_change_address")>]
+        member val EstimatedChangeAddress = "" with get, set
+        [<JsonProperty("inputs")>]
+        member val Inputs = null : TransactionInput array with get, set
+        [<JsonProperty("outputs")>]
+        member val Outputs = null : TransactionOutput array with get, set
 
-    type BlockRequest() =
-        member val hash = "" with get, set
-        member val height = 0 with get, set
-        member val block_time = "" with get, set
-        member val difficulty = 0L with get, set
-        member val merkleroot = "" with get, set
-        member val is_orphan = false with get, set
-        member val prev_block = "" with get, set
-        member val next_block = "" with get, set
-        member val byte_size = 0 with get, set
-        member val confirmations = 0 with get, set
-        member val transactions = 0 with get, set
-        member val value = 0L with get, set
-        member val miningpool_name = "" with get, set
-        member val miningpool_url = "" with get, set
-        member val miningpool_slug = "" with get, set
+    type Block() =
+        [<JsonProperty("hash")>]
+        member val Hash = "" with get, set
+        [<JsonProperty("height")>]
+        member val Height = 0 with get, set
+        [<JsonProperty("block_time")>]
+        member val BlockTime = "" with get, set
+        [<JsonProperty("difficulty")>]
+        member val Difficulty = 0L with get, set
+        [<JsonProperty("merkleroot")>]
+        member val Merkleroot = "" with get, set
+        [<JsonProperty("is_orphan")>]
+        member val IsOrphan = false with get, set
+        [<JsonProperty("prev_block")>]
+        member val PrevBlock = "" with get, set
+        [<JsonProperty("next_block")>]
+        member val NextBlock = "" with get, set
+        [<JsonProperty("byte_size")>]
+        member val ByteSize = 0 with get, set
+        [<JsonProperty("confirmations")>]
+        member val Confirmations = 0 with get, set
+        [<JsonProperty("transactions")>]
+        member val Transactions = 0 with get, set
+        [<JsonProperty("value")>]
+        member val Value = 0L with get, set
+        [<JsonProperty("miningpool_name")>]
+        member val MiningpoolName = "" with get, set
+        [<JsonProperty("miningpool_url")>]
+        member val MiningpoolUrl = "" with get, set
+        [<JsonProperty("miningpool_slug")>]
+        member val MiningpoolSlug = "" with get, set
 
         /// <summary>
         /// Get transactions of this block (paginated)
         /// </summary>
-        member x.Transactions(?page0 : int, ?limit0 : int, ?sort_dir0 : string) =
+        member x.GetTransactions(?page0 : int, ?limit0 : int, ?sort_dir0 : string) =
             let page = defaultArg page0 0
             let limit = defaultArg limit0 10
             let sort_dir = defaultArg sort_dir0 "asc" 
 
             //let response = BTClientBase.getBlockTransactionsResponse x.hash page limit sort_dir
-            let response = getBlockTransactionsResponse x.hash page limit sort_dir
+            let response = getBlockTransactionsResponse x.Hash page limit sort_dir
 
-            let convertedResponse = convertToObject<Paging<BlockTransactionRequest>> response
+            let convertedResponse = convertToObject<Paging<BlockTransaction>> response
 
-            new PagingResponse<BlockTransactionRequest>(x.hash, sort_dir, convertedResponse, getBlockTransactionsResponse)
-
-        /// <summary>
-        /// Get transactions of this block (paginated) (C# interop)
-        /// </summary>
-        member x.Transactions(page : int) =
-            x.Transactions(page0 = page)
+            new PagingResponse<BlockTransaction>(x.Hash, sort_dir, convertedResponse, getBlockTransactionsResponse)
 
         /// <summary>
         /// Get transactions of this block (paginated) (C# interop)
         /// </summary>
-        member x.Transactions(page : int, limit : int) =
-            x.Transactions(page0 = page, limit0 = limit)
+        member x.GetTransactions(page : int) =
+            x.GetTransactions(page0 = page)
+
+        /// <summary>
+        /// Get transactions of this block (paginated) (C# interop)
+        /// </summary>
+        member x.GetTransactions(page : int, limit : int) =
+            x.GetTransactions(page0 = page, limit0 = limit)
 
         /// <summary>
         /// Get the next block
         /// </summary>
-        member x.NextBlock() = 
+        member x.GetNextBlock() = 
             //let response = BTClientBase.getBlockResponse x.next_block
-            let response = getBlockResponse x.next_block
-            convertToObject<BlockRequest> response
+            let response = getBlockResponse x.NextBlock
+            convertToObject<Block> response
 
         /// <summary>
         /// Get the previous block
         /// </summary>
-        member x.PrevBlock() =
+        member x.GetPrevBlock() =
             //let response = BTClientBase.getBlockResponse x.prev_block
-            let response = getBlockResponse x.prev_block
-            convertToObject<BlockRequest> response
+            let response = getBlockResponse x.PrevBlock
+            convertToObject<Block> response
 
 
-    type TransactionRequest with 
+    type Transaction with 
         member x.Block =
             let response = getBlockResponse x.BlockHash
-            convertToObject<BlockRequest> response
+            convertToObject<Block> response
