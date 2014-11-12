@@ -10,14 +10,14 @@ module Client =
     /// </summary>
     let public GetBlock block = 
         let response = getBlockResponse block
-        convertToObject<BlockRequest> response
+        convertToObject<Block> response
 
     /// <summary>
     /// Get the latest block
     /// </summary>
     let public GetLastBlock() = 
         let response = getLastBlockResponse()
-        convertToObject<BlockRequest> response
+        convertToObject<Block> response
 
     /// <summary>
     /// Get all blocks
@@ -26,23 +26,23 @@ module Client =
         let sort_dir = "asc"
 
         let response = getAllBlocksResponse page limit sort_dir
-        let convertedResponse = convertToObject<Paging<BlockRequest>> response
+        let convertedResponse = convertToObject<Paging<Block>> response
 
         // create altered function because PagingResponse requires too many args
         let altered = fun x y z b -> getAllBlocksResponse y z b
 
-        new PagingResponse<BlockRequest>(String.Empty, sort_dir, convertedResponse, altered)
+        new PagingResponse<Block>(String.Empty, sort_dir, convertedResponse, altered)
 
     /// <summary>
     /// Get a specific transaction
     /// </summary>
     let public GetTransaction trans =
         let response = getTransactionResponse trans
-        convertToObject<TransactionRequest> response   
+        convertToObject<Transaction> response   
 
     /// <summary>
     /// Get a specific address
     /// </summary>
     let public GetAddress addr =
         let response = getAddressResponse addr
-        convertToObject<AddressRequest> response  
+        convertToObject<Address> response  
