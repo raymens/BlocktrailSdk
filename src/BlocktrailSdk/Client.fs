@@ -32,3 +32,10 @@ module Client =
         let altered = fun x y z b -> getAllBlocksResponse y z b
 
         new PagingResponse<BlockRequest>(String.Empty, sort_dir, convertedResponse, altered)
+
+    /// <summary>
+    /// Get a specific transaction
+    /// </summary>
+    let public GetTransaction trans =
+        let response = getTransactionResponse trans
+        convertToObject<TransactionRequest> response   

@@ -24,6 +24,7 @@ let main argv =
         for trans in transactions do
             i <- i + 1
             printfn "[%i/%i] %s" i transactions.Total trans.hash
+            
 
         printfn "Press key to fetch next row of transactions"
         System.Console.ReadLine() |> ignore

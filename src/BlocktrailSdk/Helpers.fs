@@ -13,7 +13,10 @@ module internal Helpers =
     let convertToObject<'T> json = JsonConvert.DeserializeObject<'T>(json)
     let populateObject json obj = JsonConvert.PopulateObject(json, obj)
 
-    let request url args = requestGet url ApiKey args
+    let request url args = 
+        let resp = requestGet url ApiKey args
+        System.Diagnostics.Trace.WriteLine(resp)
+        resp
 
     let getLastBlockResponse() = 
         let url = sprintf "block/latest"
@@ -34,3 +37,7 @@ module internal Helpers =
         request url [ "page", string page
                       "limit", string limit
                       "sort_dir", sort_dir ]
+
+    let getTransactionResponse trans =
+        let url = sprintf "transaction/%s" trans
+        request url []
