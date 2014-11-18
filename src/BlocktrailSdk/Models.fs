@@ -1,33 +1,54 @@
 ﻿namespace BlocktrailSdk.Models
 
-
 open System
 open BlocktrailSdk.Helpers
 open System.Collections.Generic
 open System.Collections.ObjectModel
 open Newtonsoft.Json
 open FSharp.Data
+open System.Runtime.InteropServices
 
 type TransactionInput = 
-    { index : int
-      output_hash : string
-      output_index : int
-      value : int64
-      address : string
-      ``type`` : string
-      multisig : Object
-      script_signature : string }
+    { [<JsonProperty("index")>]
+      Index : int
+      [<JsonProperty("output_hash")>]
+      OutputHash : string
+      [<JsonProperty("output_index")>]
+      OutputIndex : int
+      [<JsonProperty("value")>]
+      Value : int64
+      [<JsonProperty("address")>]
+      Address : string
+      [<JsonProperty("type")>]
+      Type : string
+      [<JsonProperty("multisig")>]
+      Multisig : Object
+      [<JsonProperty("multisig_addresses")>]
+      MultisigAddresses : string[]
+      [<JsonProperty("script_signature")>]
+      ScriptSignature : string }
 
 type TransactionOutput = 
-    { index : int
-      value : int64
-      address : string
-      ``type`` : string
-      multisig : Object
-      script : string
-      script_hex : string
-      spent_hash : string
-      spent_index : int }
+    { [<JsonProperty("index")>]
+      Index : int
+      [<JsonProperty("value")>]
+      Value : int64
+      [<JsonProperty("address")>]
+      Address : string
+      [<JsonProperty("type")>]
+      Type : string
+      [<JsonProperty("multisig")>]
+      Multisig : string
+      [<JsonProperty("multisig_addresses")>]
+      MultisigAddresses : string[]
+      [<JsonProperty("script")>]
+      Script : Object
+      [<JsonProperty("script_hex")>]
+      ScriptHex : string
+      [<JsonProperty("spent_hash")>]
+      SpentHash : string
+      [<JsonProperty("spent_index")>]
+      SpentIndex : int }
 
 type Output = 
     { [<JsonProperty("hash")>]
@@ -96,8 +117,6 @@ type PagingResponse<'T>(id, sortDir, data : Paging<'T>, reqfunc) =
         x.PageAvailable (x.Page - 1)
 
     member x.GetPage page : PagingResponse<'T> = 
-        printfn "Requesting page %i" page
-
         if x.PageAvailable page = false then raise (ArgumentOutOfRangeException("page", "Requested page is out of range"))
 
         let response = reqfunc x.Id page x.Raw.PerPage x.SortDir
@@ -241,35 +260,21 @@ type Block() =
     /// <summary>
     /// Get transactions of this block (paginated)
     /// </summary>
-    member x.GetTransactions(?page0 : int, ?limit0 : int, ?sort_dir0 : string) =
-        let page = defaultArg page0 1
-        let limit = defaultArg limit0 20
-        let sort_dir = defaultArg sort_dir0 "asc" 
+    member x.GetTransactions([<Optional;DefaultParameterValue(1)>] page : int, [<Optional;DefaultParameterValue(0)>] limit, [<Optional;DefaultParameterValue(null)>] sort_dir) =
+        let checkedPage = if page <= 0 then 1 else page
+        let checkedLimit = if limit <= 0 then 20 else limit
+        let checkedSortDir = if sort_dir = null then "asc" else sort_dir
 
-        //let response = BTClientBase.getBlockTransactionsResponse x.hash page limit sort_dir
-        let response = getBlockTransactionsResponse x.Hash page limit sort_dir
+        let response = getBlockTransactionsResponse x.Hash checkedPage checkedLimit checkedSortDir
 
         let convertedResponse = convertToObject<Paging<BlockTransaction>> response
 
         new PagingResponse<BlockTransaction>(x.Hash, sort_dir, convertedResponse, getBlockTransactionsResponse)
 
     /// <summary>
-    /// Get transactions of this block (paginated) (C# interop)
-    /// </summary>
-    member x.GetTransactions(page : int) =
-        x.GetTransactions(page0 = page)
-
-    /// <summary>
-    /// Get transactions of this block (paginated) (C# interop)
-    /// </summary>
-    member x.GetTransactions(page : int, limit : int) =
-        x.GetTransactions(page0 = page, limit0 = limit)
-
-    /// <summary>
     /// Get the next block
     /// </summary>
     member x.GetNextBlock() = 
-        //let response = BTClientBase.getBlockResponse x.next_block
         let response = getBlockResponse x.NextBlock
         convertToObject<Block> response
 
@@ -277,10 +282,8 @@ type Block() =
     /// Get the previous block
     /// </summary>
     member x.GetPrevBlock() =
-        //let response = BTClientBase.getBlockResponse x.prev_block
         let response = getBlockResponse x.PrevBlock
         convertToObject<Block> response
-
 
 type Transaction with 
     member x.Block =

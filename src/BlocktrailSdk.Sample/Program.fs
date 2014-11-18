@@ -6,11 +6,8 @@ let main argv =
 
     BlocktrailSdk.Config.ApiKey <- apiKey
     let block = BlocktrailSdk.Client.GetBlock "00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947"
-    //let block = oldblock.NextBlock()
-    //let block = oldblock
-    
 
-    let mutable transactions = block.GetTransactions(limit0 = 400)
+    let mutable transactions = block.GetTransactions(1, 20, "asc")
     let mutable i = 0
 
     for trans in transactions do
