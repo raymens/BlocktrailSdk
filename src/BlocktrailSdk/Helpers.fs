@@ -22,7 +22,7 @@ module internal Helpers =
         let url = sprintf "block/latest"
         request url []
 
-    let getAllBlocksResponse page limit sort_dir = 
+    let getAllBlocksResponse page limit sort_dir =
         let url = sprintf "all-blocks"
         request url [ "page", string page
                       "limit", string limit
@@ -33,6 +33,8 @@ module internal Helpers =
         request url []
 
     let getBlockTransactionsResponse block page limit sort_dir = 
+        printfn "FETCHING: %i %i" page limit
+
         let url = sprintf "block/%s/transactions" block
         request url [ "page", string page
                       "limit", string limit

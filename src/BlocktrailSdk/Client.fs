@@ -4,6 +4,7 @@ module Client =
     open BlocktrailSdk.Models
     open BlocktrailSdk.Helpers
     open System
+    open System.Runtime.InteropServices
 
     /// <summary>
     /// Get a specific block
@@ -22,7 +23,8 @@ module Client =
     /// <summary>
     /// Get all blocks
     /// </summary>
-    let public GetAllBlocks(page : int, limit : int) = 
+    
+    let public GetAllBlocks([<Optional;DefaultParameterValue(1)>] page : int, [<Optional;DefaultParameterValue(20)>]  limit : int) = 
         let sort_dir = "asc"
 
         let response = getAllBlocksResponse page limit sort_dir

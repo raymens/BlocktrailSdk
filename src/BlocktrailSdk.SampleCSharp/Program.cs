@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlocktrailSdk.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,50 +14,56 @@ namespace BlocktrailSdk.SampleCSharp
             string apiKey = "INSERT_API_KEY_HERE";
 
             BlocktrailSdk.Config.ApiKey = apiKey;
-            var block = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
-            var transes = block.GetTransactions(0, 1);
 
-            var transhash = transes[0].Hash;
+            Block specificBlock = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
+            var blockTransactions = specificBlock.GetTransactions(page: 1, limit: 100);
 
-            var transaction = BlocktrailSdk.Client.GetTransaction(transhash);
+            string transactionHash = blockTransactions.First().Hash;
 
-            Console.WriteLine(transaction.Confirmations);
+            Transaction refetchTransaction = BlocktrailSdk.Client.GetTransaction(transactionHash);
+            Block transactionBlock = refetchTransaction.Block;
 
+            // Print nr of confirmations
+            Console.WriteLine("Transaction: " + refetchTransaction.Hash);
+            Console.WriteLine("\t# confirmations: " + refetchTransaction.Confirmations);
+            Console.WriteLine("\tBlock: " + transactionBlock.Height + Environment.NewLine);
 
-            var block2 = transaction.Block;
+            Address addrObj = BlocktrailSdk.Client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
 
-            Console.WriteLine(block.Hash);
-            Console.WriteLine(block2.Hash);
+            Console.WriteLine("Address: " + addrObj.Hash160);
+            Console.WriteLine("\tBalance: " + addrObj.Balance + Environment.NewLine);
 
-            var addr = transaction.Inputs[0].address; // null
+            Console.WriteLine("Press a key to fetch transactions of block: " + specificBlock.Height);
+            Console.ReadKey();
 
-            var addrObj = BlocktrailSdk.Client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
-
-            Console.WriteLine(addrObj.Balance);
-
-
-            //Console.WriteLine(block.Transactions(0, 1)[0].outputs.Count());
-
-            //var blocks = client.GetAllBlocks(0, 100);
-
-            //Console.WriteLine(blocks.Total);
-
-
-            Console.Read();
-
+            // Start printing rows of transactions
             int i = 0;
 
-            for(var transactions = block.GetTransactions(0, 1); transactions.NextPageAvailable(); transactions = transactions.NextPage())
-            {
-                foreach (var item in transactions)
-                {
-                    Console.WriteLine(String.Format("[{0}/{1}] {2}", ++i, transactions.Total, item.Hash));
-                }
+            var transactions = specificBlock.GetTransactions(1, 100);
 
-                Console.ReadLine();
+            foreach (var item in transactions)
+            {
+                Console.WriteLine(String.Format("[{0}/{1}] {2}", ++i, transactions.Total, item.Hash));
             }
 
-            Console.ReadLine();
+            Console.WriteLine("Press a key to fetch the next page of results.");
+            Console.ReadKey();
+
+            do
+            {
+                transactions = transactions.NextPage();
+
+                foreach (var item in transactions)
+                {
+                    Console.WriteLine(String.Format("[{0}/{1}] {2}", i, transactions.Total, item.Hash));
+                }
+
+                Console.WriteLine("Press a key to fetch the next page of results.");
+                Console.ReadKey();
+            } while (transactions.NextPageAvailable());
+
+            Console.WriteLine("Press a key to close the sample.");
+            Console.ReadKey();
         }
     }
 }

@@ -1,7 +1,7 @@
 NUGET
   remote: https://nuget.org/api/v2
   specs:
-    FAKE (3.9.2)
+    FAKE (3.9.9)
     FSharp.Compiler.Service (0.0.67)
     FSharp.Data (2.1.0)
       Zlib.Portable (>= 1.10.0) - portable-7.0
@@ -29,5 +29,5 @@ NUGET
 GITHUB
   remote: fsharp/FAKE
   specs:
-    modules/Octokit/Octokit.fsx (03067af1a740fe00b47c6e91244d2022fc91a1c3)
+    modules/Octokit/Octokit.fsx (2267f836a7a053f5caa8ac6dc7f897ea867ecb4c)
       Octokit (>= 0)
