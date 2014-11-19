@@ -28,3 +28,13 @@ let ``330000<sat> returns 0.0033<btc>``() =
     let result = BlocktrailClient.toBTC input
     Assert.AreEqual(0.0033m, result)
 *)
+
+(*
+BlocktrailSdk.Config.ApiKey <- "";
+
+
+let ``00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947 has 849 results``() = 
+    let specificBlock = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
+    let transactions = specificBlock.GetTransactions(1, 100, "asc")
+
+    Assert.AreEqual(849, transactions.Total)*)

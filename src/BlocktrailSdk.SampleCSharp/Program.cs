@@ -30,6 +30,10 @@ namespace BlocktrailSdk.SampleCSharp
 
             Address addrObj = BlocktrailSdk.Client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
 
+            var addrTrans = addrObj.GetTransactions();
+            var uncAddrTrans = addrObj.GetUnconfirmedTransactions();
+            var unspOutTrans = addrObj.GetUnspentOutputs();
+
             Console.WriteLine("Address: " + addrObj.Hash160);
             Console.WriteLine("\tBalance: " + addrObj.Balance + Environment.NewLine);
 
@@ -55,7 +59,7 @@ namespace BlocktrailSdk.SampleCSharp
 
                 foreach (var item in transactions)
                 {
-                    Console.WriteLine(String.Format("[{0}/{1}] {2}", i, transactions.Total, item.Hash));
+                    Console.WriteLine(String.Format("[{0}/{1}] {2}", ++i, transactions.Total, item.Hash));
                 }
 
                 Console.WriteLine("Press a key to fetch the next page of results.");

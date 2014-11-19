@@ -50,6 +50,30 @@ type TransactionOutput =
       [<JsonProperty("spent_index")>]
       SpentIndex : int }
 
+type TransactionUnspentOutput =
+    { [<JsonProperty("hash")>]
+      Hash : string
+      [<JsonProperty("time")>]
+      Time : string
+      [<JsonProperty("confirmations")>]
+      Confirmations : int
+      [<JsonProperty("is_coinbase")>]
+      IsCoinbase : bool
+      [<JsonProperty("value")>]
+      Value : int64
+      [<JsonProperty("index")>]
+      Index : int
+      [<JsonProperty("address")>]
+      Address : string
+      [<JsonProperty("type")>]
+      Type : string
+      [<JsonProperty("multisig")>]
+      Multisig : string
+      [<JsonProperty("script")>]
+      Script : string
+      [<JsonProperty("script_hex")>]
+      ScriptHex : string }
+
 type Output = 
     { [<JsonProperty("hash")>]
       Hash : string
@@ -101,20 +125,15 @@ type PagingResponse<'T>(id, sortDir, data : Paging<'T>, reqfunc) =
     member val Page = data.CurrentPage with get
 
     member x.PageAvailable page =
-        let modulusResult = int (x.Total % int64 x.Limit)
-
-        if modulusResult > 1 then
-            let totalPages = int (x.Total / int64 x.Limit) + 1
-
-            page <= totalPages
-        else
-            true
+        page <= x.Pages
 
     member x.NextPageAvailable() =
         x.PageAvailable (x.Page + 1)
 
     member x.PrevPageAvailable() =
         x.PageAvailable (x.Page - 1)
+
+    member x.Pages = int (x.Total / int64 x.Limit) + 1
 
     member x.GetPage page : PagingResponse<'T> = 
         if x.PageAvailable page = false then raise (ArgumentOutOfRangeException("page", "Requested page is out of range"))
@@ -131,33 +150,6 @@ type PagingResponse<'T>(id, sortDir, data : Paging<'T>, reqfunc) =
 
     member x.NextPage() : PagingResponse<'T> = 
         x.GetPage (x.Raw.CurrentPage + 1)
-
-
-type Address() = 
-    [<JsonProperty("address")>]
-    member val Address = "" with get, set
-    [<JsonProperty("hash160")>]
-    member val Hash160 = "" with get, set
-    [<JsonProperty("balance")>]
-    member val Balance = 0L with get, set
-    [<JsonProperty("received")>]
-    member val Received = 0L with get, set
-    [<JsonProperty("sent")>]
-    member val Sent = 0L with get, set
-    [<JsonProperty("unconfirmed_received")>]
-    member val UnconfirmedReceived = 0 with get, set
-    [<JsonProperty("unconfirmed_sent")>]
-    member val UnconfirmedSent = 0 with get, set
-    [<JsonProperty("unconfirmed_transactions")>]
-    member val UnconfirmedTransactions = 0 with get, set
-    [<JsonProperty("total_transactions_in")>]
-    member val TotalTransactionsIn = 0 with get, set
-    [<JsonProperty("total_transactions_out")>]
-    member val TotalTransactionsOut = 0 with get, set
-    [<JsonProperty("category")>]
-    member val Category = "" with get, set
-    [<JsonProperty("tag")>]
-    member val Tag = "" with get, set
 
 type Transaction() =
     [<JsonProperty("hash")>]
@@ -199,7 +191,7 @@ type Transaction() =
     [<JsonProperty("outputs")>]
     member val Outputs = null : TransactionOutput array with get, set
 
-type BlockTransaction() =
+type RelatedTransaction() =
     [<JsonProperty("hash")>]
     member val Hash = "" with get, set
     [<JsonProperty("time")>]
@@ -208,7 +200,7 @@ type BlockTransaction() =
     member val Confirmations = 0 with get, set
     [<JsonProperty("is_coinbase")>]
     member val IsCoinbase = false with get, set
-    [<JsonProperty("outputsestimated_value")>]
+    [<JsonProperty("estimated_value")>]
     member val EstimatedValue = 0L with get, set
     [<JsonProperty("total_input_value")>]
     member val TotalInputValue = 0L with get, set
@@ -224,6 +216,74 @@ type BlockTransaction() =
     member val Inputs = null : TransactionInput array with get, set
     [<JsonProperty("outputs")>]
     member val Outputs = null : TransactionOutput array with get, set
+
+type Address() = 
+    [<JsonProperty("address")>]
+    member val Address = "" with get, set
+    [<JsonProperty("hash160")>]
+    member val Hash160 = "" with get, set
+    [<JsonProperty("balance")>]
+    member val Balance = 0L with get, set
+    [<JsonProperty("received")>]
+    member val Received = 0L with get, set
+    [<JsonProperty("sent")>]
+    member val Sent = 0L with get, set
+    [<JsonProperty("unconfirmed_received")>]
+    member val UnconfirmedReceived = 0 with get, set
+    [<JsonProperty("unconfirmed_sent")>]
+    member val UnconfirmedSent = 0 with get, set
+    [<JsonProperty("unconfirmed_transactions")>]
+    member val UnconfirmedTransactions = 0 with get, set
+    [<JsonProperty("total_transactions_in")>]
+    member val TotalTransactionsIn = 0 with get, set
+    [<JsonProperty("total_transactions_out")>]
+    member val TotalTransactionsOut = 0 with get, set
+    [<JsonProperty("category")>]
+    member val Category = "" with get, set
+    [<JsonProperty("tag")>]
+    member val Tag = "" with get, set
+
+    /// <summary>
+    /// Get transactions of this address (paginated)
+    /// </summary>
+    member x.GetTransactions([<Optional;DefaultParameterValue(1)>] page : int, [<Optional;DefaultParameterValue(0)>] limit, [<Optional;DefaultParameterValue(null)>] sort_dir) =
+        let checkedPage = if page <= 0 then 1 else page
+        let checkedLimit = if limit <= 0 then 20 else limit
+        let checkedSortDir = if sort_dir = null then "asc" else sort_dir
+
+        let response = getAddressTransactionsResponse x.Address checkedPage checkedLimit checkedSortDir
+
+        let convertedResponse = convertToObject<Paging<RelatedTransaction>> response
+
+        new PagingResponse<RelatedTransaction>(x.Address, checkedSortDir, convertedResponse, getAddressTransactionsResponse)
+
+    /// <summary>
+    /// Get uncomfirmed transactions of this address (paginated)
+    /// </summary>
+    member x.GetUnconfirmedTransactions([<Optional;DefaultParameterValue(1)>] page : int, [<Optional;DefaultParameterValue(0)>] limit, [<Optional;DefaultParameterValue(null)>] sort_dir) =
+        let checkedPage = if page <= 0 then 1 else page
+        let checkedLimit = if limit <= 0 then 20 else limit
+        let checkedSortDir = if sort_dir = null then "asc" else sort_dir
+
+        let response = getAddressUncomfirmedTransactionsResponse x.Address checkedPage checkedLimit checkedSortDir
+
+        let convertedResponse = convertToObject<Paging<RelatedTransaction>> response
+
+        new PagingResponse<RelatedTransaction>(x.Address, checkedSortDir, convertedResponse, getAddressUncomfirmedTransactionsResponse)
+
+    /// <summary>
+    /// Get unspent outputs of this address (paginated)
+    /// </summary>
+    member x.GetUnspentOutputs([<Optional;DefaultParameterValue(1)>] page : int, [<Optional;DefaultParameterValue(0)>] limit, [<Optional;DefaultParameterValue(null)>] sort_dir) =
+        let checkedPage = if page <= 0 then 1 else page
+        let checkedLimit = if limit <= 0 then 20 else limit
+        let checkedSortDir = if sort_dir = null then "asc" else sort_dir
+
+        let response = getAddressUnspentOutputsResponse x.Address checkedPage checkedLimit checkedSortDir
+
+        let convertedResponse = convertToObject<Paging<TransactionUnspentOutput>> response
+
+        new PagingResponse<TransactionUnspentOutput>(x.Address, checkedSortDir, convertedResponse, getAddressUnspentOutputsResponse)
 
 type Block() =
     [<JsonProperty("hash")>]
@@ -267,9 +327,9 @@ type Block() =
 
         let response = getBlockTransactionsResponse x.Hash checkedPage checkedLimit checkedSortDir
 
-        let convertedResponse = convertToObject<Paging<BlockTransaction>> response
+        let convertedResponse = convertToObject<Paging<RelatedTransaction>> response
 
-        new PagingResponse<BlockTransaction>(x.Hash, sort_dir, convertedResponse, getBlockTransactionsResponse)
+        new PagingResponse<RelatedTransaction>(x.Hash, checkedSortDir, convertedResponse, getBlockTransactionsResponse)
 
     /// <summary>
     /// Get the next block
