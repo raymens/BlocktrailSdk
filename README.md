@@ -15,3 +15,44 @@ The library is written in F# but is usable in any .NET language. The library is 
 Read the [Getting started tutorial](http://raymens.github.io/BlocktrailSdk/index.html#Getting-started) to learn more.
 
 Documentation: http://raymens.github.io/BlocktrailSdk
+
+## TODO
+
+### Data API
+
+API | Status    |
+----|-----------|
+Address | :) |
+Address Transactions | - |
+Address Uncomfirmed Transactions | - |
+Address Unspent Outputs | - |
+Get Block | :) |
+Block Transactions | :) |
+All Blocks | :) |
+Latest Block | :) |
+Get Transaction | :) |
+
+### Webhooks API
+
+API | Status       |
+----|--------------|
+List All Webhooks | - |
+Get Existing Webhook | - | 
+Update an existing Webhook URL | - |
+Delete a Webhook and all it's Events | - |
+Subscribe Webhook to Events | - |
+List Webhook Events | - |
+Unsubscribe the Webhook from an Event | - |
+
+### Payments API (closed beta)
+This API is still in closed beta. I'm waiting for the API to be open and released before I can implement it.
+Following functionality is what there is to be expected.
+
+API | Status       |
+----|--------------|
+Creating a Wallet | - |
+Initialise Existing Wallet | - |
+Get new address | - |
+Get wallet balance | - |
+Wallet Webhook | - |
+Pay | - |
