@@ -18,14 +18,18 @@ Documentation: http://raymens.github.io/BlocktrailSdk
 
 ## TODO
 
+Functionality | Status     |
+--------------|------------|
+Conversion of units (Satoshi, btc etc.) | - |
+
 ### Data API
 
 API | Status    |
 ----|-----------|
 Address | :) |
-Address Transactions | - |
-Address Uncomfirmed Transactions | - |
-Address Unspent Outputs | - |
+Address Transactions | :) |
+Address Uncomfirmed Transactions | :) |
+Address Unspent Outputs | :) |
 Get Block | :) |
 Block Transactions | :) |
 All Blocks | :) |
