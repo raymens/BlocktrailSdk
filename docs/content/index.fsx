@@ -28,17 +28,16 @@ This example demonstrates using a function defined in this sample library.
 *)
 #r "BlocktrailSdk.dll"
 open BlocktrailSdk
+open BlocktrailSdk.Models
 
-let client = new BTClient()
+BlocktrailSdk.Config.ApiKey <- "INSERT_YOUR_API_KEY";
 
-let transaction = client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
+let transaction = BlocktrailSdk.Client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
 
-printfn "%s" transaction.block_hash
-printfn "%i" transaction.confirmations
+printfn "Hash: %s" transaction.Hash
+printfn "Confirmations: %i" transaction.Confirmations
 
 (**
-Some more info
-
 Samples & documentation
 -----------------------
 
@@ -60,7 +59,7 @@ the project and submit pull requests. If you're adding a new public API, please 
 consider adding [samples][content] that can be turned into a documentation. You might
 also want to read the [library design notes][readme] to understand how it works.
 
-The library is available under Public Domain license, which allows modification and 
+The library is available under the MIT license, which allows modification and 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 

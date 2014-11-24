@@ -12,13 +12,14 @@ Say more
 *)
 #r "BlocktrailSdk.dll"
 open BlocktrailSdk
+open BlocktrailSdk.Models
 
-let client = new BTClient()
+BlocktrailSdk.Config.ApiKey <- "INSERT_YOUR_API_KEY";
 
-let transaction = client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
+let transaction = BlocktrailSdk.Client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
 
-printfn "%s" transaction.block_hash
-printfn "%i" transaction.confirmations
+printfn "Hash: %s" transaction.Hash
+printfn "Confirmations: %i" transaction.Confirmations
 (**
 Some more info
 *)
