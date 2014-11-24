@@ -37,11 +37,11 @@ module Client =
             if sort_dir = null then "asc"
             else sort_dir
         
-        let response = getAllBlocksResponse page limit sort_dir
+        let response = getAllBlocksResponse checkedPage checkedLimit checkedSortDir
         let convertedResponse = convertToObject<Paging<Block>> response
         // create altered function because PagingResponse requires too many args
         let altered = fun x y z b -> getAllBlocksResponse y z b
-        new PagingResponse<Block>(String.Empty, sort_dir, convertedResponse, altered)
+        new PagingResponse<Block>(String.Empty, checkedSortDir, convertedResponse, altered)
     
     /// <summary>
     /// Get a specific transaction
