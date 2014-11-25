@@ -7,7 +7,7 @@
 BlocktrailSdk
 ===================
 
-Documentation
+**SOON**
 
 <div class="row">
   <div class="span1"></div>
@@ -23,7 +23,7 @@ Documentation
 Example
 -------
 
-This example demonstrates using a function defined in this sample library.
+This example demonstrates retrieving transaction information using a hash.
 
 *)
 #r "BlocktrailSdk.dll"
@@ -32,7 +32,8 @@ open BlocktrailSdk.Models
 
 BlocktrailSdk.Config.ApiKey <- "INSERT_YOUR_API_KEY";
 
-let transaction = BlocktrailSdk.Client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
+let transaction = 
+    BlocktrailSdk.Client.GetTransaction "c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad"
 
 printfn "Hash: %s" transaction.Hash
 printfn "Confirmations: %i" transaction.Confirmations
@@ -42,7 +43,7 @@ Samples & documentation
 -----------------------
 
 The library comes with comprehensible documentation. 
-It can include tutorials automatically generated from `*.fsx` files in [the content folder][content]. 
+It includes tutorials automatically generated from `*.fsx` files in [the content folder][content]. 
 The API reference is automatically generated from Markdown comments in the library implementation.
 
  * [Tutorial](tutorial.html) contains a further explanation of this sample library.
