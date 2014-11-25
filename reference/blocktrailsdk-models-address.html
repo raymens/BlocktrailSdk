@@ -37,6 +37,8 @@
 
 <h1>Address</h1>
 <div class="xmldoc">
+<p>Will retrieve a specific address containing basic info such as the current balance, 
+the total amount received, and the number of transactions made.</p>
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -55,7 +57,7 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L136-136" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L233-233" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -81,7 +83,7 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L138-138" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L235-235" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -99,7 +101,7 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L142-142" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L241-241" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -117,7 +119,7 @@
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L158-158" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L265-265" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -128,68 +130,71 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '11', 11)" onmouseover="showTip(event, '11', 11)">
-            Hash160
+            GetTransactions(page, limit, sort_dir)
           </code>
           <div class="tip" id="11">
-            <strong>Signature:</strong> string<br />
+            <strong>Signature:</strong> (page:int * limit:int * sort_dir:string) -&gt; PagingResponse&lt;RelatedTransaction&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L140-140" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L273-273" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Retrieve transactions of this address (paginated)</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '12', 12)" onmouseover="showTip(event, '12', 12)">
-            Received
+            GetUnconfirmedTransactions(...)
           </code>
           <div class="tip" id="12">
-            <strong>Signature:</strong> int64<br />
+            <strong>Signature:</strong> (page:int * limit:int * sort_dir:string) -&gt; PagingResponse&lt;RelatedTransaction&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L144-144" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L296-296" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Retrieve uncomfirmed transactions of this address (paginated)</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
-            Sent
+            GetUnspentOutputs(page, limit, sort_dir)
           </code>
           <div class="tip" id="13">
-            <strong>Signature:</strong> int64<br />
+            <strong>Signature:</strong> (page:int * limit:int * sort_dir:string) -&gt; PagingResponse&lt;TransactionUnspentOutput&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L146-146" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L319-319" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Retrieve unspent outputs of this address (paginated)</p>
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '14', 14)" onmouseover="showTip(event, '14', 14)">
-            Tag
+            Hash160
           </code>
           <div class="tip" id="14">
             <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L160-160" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L238-238" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -200,14 +205,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '15', 15)" onmouseover="showTip(event, '15', 15)">
-            TotalTransactionsIn
+            Received
           </code>
           <div class="tip" id="15">
-            <strong>Signature:</strong> int<br />
+            <strong>Signature:</strong> int64<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L154-154" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L244-244" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -218,14 +223,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
-            TotalTransactionsOut
+            Sent
           </code>
           <div class="tip" id="16">
-            <strong>Signature:</strong> int<br />
+            <strong>Signature:</strong> int64<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L156-156" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L247-247" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -236,14 +241,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
-            UnconfirmedReceived
+            Tag
           </code>
           <div class="tip" id="17">
-            <strong>Signature:</strong> int<br />
+            <strong>Signature:</strong> string<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L148-148" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L268-268" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -254,14 +259,14 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
-            UnconfirmedSent
+            TotalTransactionsIn
           </code>
           <div class="tip" id="18">
             <strong>Signature:</strong> int<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L150-150" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L259-259" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -272,14 +277,68 @@
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
-            UnconfirmedTransactions
+            TotalTransactionsOut
           </code>
           <div class="tip" id="19">
             <strong>Signature:</strong> int<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L152-152" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L262-262" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+            UnconfirmedReceived
+          </code>
+          <div class="tip" id="20">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L250-250" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+            UnconfirmedSent
+          </code>
+          <div class="tip" id="21">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L253-253" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+            UnconfirmedTransactions
+          </code>
+          <div class="tip" id="22">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L256-256" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>

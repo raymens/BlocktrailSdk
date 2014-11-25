@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Introducing your project
+    <title>#Introduction
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="SDK for blocktrail.com"/>
@@ -33,9 +33,78 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1>Introducing your project</h1>
+<h1>#Introduction</h1>
 
-<p>Say more</p>
+<p>Blocktrail does not provide a .NET implementation of their SDK so I decided to build one on my own (feel free to contribute!).
+This .NET SDK is written in F# and tries to keep it as C# friendly as possible, keep this in mind when contributing as it is a vital requirement.
+The client implements some of the same methods as the official ones. The idea was to differ in some ways.</p>
+
+<p>E.G.: implementing the request for unconfirmed transactions of a address as a method on the address object instead of an API call from the client object.</p>
+
+<p>We start the tutorial by setting up the API. The first thing to notice is that it's built in F# modules which are basicaly statis classes. 
+This might change in the future, but at this moment it is not possible to use multiple API keys.</p>
+
+<p>If you don't have a Blocktrail API key yet go get one at <a href="https://www.blocktrail.com/signup">Blocktrail.com</a>, it's free!</p>
+
+<p>Copy the snippet below and replace the APIKey placeholder with your api key you requested.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">BlocktrailSdk</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">BlocktrailSdk</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">Models</span>
+
+<span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">ApiKey</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">INSERT_YOUR_API_KEY</span><span class="s">&quot;</span>;
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">transaction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">Client</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">GetTransaction</span> <span class="s">&quot;</span><span class="s">c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad</span><span class="s">&quot;</span></pre>
+</td>
+</tr>
+</table>
+
+<p>This will retrieve the the transaction of that specific hash.
+After retrieving it you can print and use it's values as shown in the next snippet.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Hash</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">Hash</span>
+<span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Confirmations</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 15)" onmouseover="showTip(event, 'fs5', 15)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">Confirmations</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Or do more advanced stuff and retrieve the Block where this particular transaction resides in.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">block</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 18)" onmouseover="showTip(event, 'fs5', 18)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="i">Block</span>
+<span onmouseout="hideTip(event, 'fs8', 20)" onmouseover="showTip(event, 'fs8', 20)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Block</span><span class="s"> </span><span class="s">height</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 21)" onmouseover="showTip(event, 'fs11', 21)" class="i">block</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">Height</span>
+<span onmouseout="hideTip(event, 'fs8', 23)" onmouseover="showTip(event, 'fs8', 23)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Block</span><span class="s"> </span><span class="s">mined</span><span class="s"> </span><span class="s">by</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="i">block</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="i">MiningpoolName</span></pre>
+</td>
+</tr>
+</table>
+
+<p>And why stop there... let's retrieve the next block and a page of it's transactions.
+Remember that responses that contains lists are often paginated. That means the reponse
+is sliced into the size you request (or the default size of 20). But don't worry, retrieving
+the next page is simple!</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
@@ -48,24 +117,27 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
+<span class="l">11: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="prep">#r</span> <span class="s">&quot;</span><span class="s">BlocktrailSdk</span><span class="s">.</span><span class="s">dll</span><span class="s">&quot;</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">BlocktrailSdk</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">Models</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">nextBlock</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs1', 27)" onmouseover="showTip(event, 'fs1', 27)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 28)" onmouseover="showTip(event, 'fs6', 28)" class="i">Client</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 29)" onmouseover="showTip(event, 'fs16', 29)" class="i">GetBlock</span> <span onmouseout="hideTip(event, 'fs11', 30)" onmouseover="showTip(event, 'fs11', 30)" class="i">block</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 31)" onmouseover="showTip(event, 'fs17', 31)" class="i">NextBlock</span>
 
-<span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">ApiKey</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">INSERT_YOUR_API_KEY</span><span class="s">&quot;</span>;
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="i">transactions</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs15', 33)" onmouseover="showTip(event, 'fs15', 33)" class="i">nextBlock</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 34)" onmouseover="showTip(event, 'fs19', 34)" class="i">GetTransactions</span>(<span class="n">1</span>, <span class="n">20</span>, <span class="s">&quot;</span><span class="s">asc</span><span class="s">&quot;</span>)
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">transaction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">Client</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">GetTransaction</span> <span class="s">&quot;</span><span class="s">c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad</span><span class="s">&quot;</span>
+<span class="c">// Print out the hashes</span>
+<span onmouseout="hideTip(event, 'fs18', 35)" onmouseover="showTip(event, 'fs18', 35)" class="i">transactions</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 36)" onmouseover="showTip(event, 'fs20', 36)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 37)" onmouseover="showTip(event, 'fs21', 37)" class="i">iteri</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="i">i</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="i">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs8', 40)" onmouseover="showTip(event, 'fs8', 40)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Transaction</span><span class="s">[</span><span class="s">%</span><span class="s">i</span><span class="s">]</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs22', 41)" onmouseover="showTip(event, 'fs22', 41)" class="i">i</span> <span onmouseout="hideTip(event, 'fs23', 42)" onmouseover="showTip(event, 'fs23', 42)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="i">Hash</span>)
 
-<span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Hash</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">Hash</span>
-<span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Confirmations</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 15)" onmouseover="showTip(event, 'fs5', 15)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">Confirmations</span></pre>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 44)" onmouseover="showTip(event, 'fs25', 44)" class="i">nextLoadOfTransactions</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs18', 45)" onmouseover="showTip(event, 'fs18', 45)" class="i">transactions</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 46)" onmouseover="showTip(event, 'fs26', 46)" class="i">NextPage</span>()
+
+<span class="c">// Print out the hashes of the 2nd page of transactions</span>
+<span onmouseout="hideTip(event, 'fs25', 47)" onmouseover="showTip(event, 'fs25', 47)" class="i">nextLoadOfTransactions</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 48)" onmouseover="showTip(event, 'fs20', 48)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 49)" onmouseover="showTip(event, 'fs21', 49)" class="i">iteri</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 50)" onmouseover="showTip(event, 'fs22', 50)" class="i">i</span> <span onmouseout="hideTip(event, 'fs23', 51)" onmouseover="showTip(event, 'fs23', 51)" class="i">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs8', 52)" onmouseover="showTip(event, 'fs8', 52)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Transaction</span><span class="s">[</span><span class="s">%</span><span class="s">i</span><span class="s">]</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs22', 53)" onmouseover="showTip(event, 'fs22', 53)" class="i">i</span> <span onmouseout="hideTip(event, 'fs23', 54)" onmouseover="showTip(event, 'fs23', 54)" class="i">x</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 55)" onmouseover="showTip(event, 'fs24', 55)" class="i">Hash</span>)</pre>
 </td>
 </tr>
 </table>
 
-<p>Some more info</p>
+<p>This was the starting point of using the SDK, there is more to be found within this project.
+Go explore the blockchain on your own and be sure to file any issues or suggestions.</p>
 
 <div class="tip" id="fs1">namespace BlocktrailSdk</div>
 <div class="tip" id="fs2">namespace BlocktrailSdk.Models</div>
@@ -77,6 +149,22 @@
 <div class="tip" id="fs8">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
 <div class="tip" id="fs9">property Transaction.Hash: string</div>
 <div class="tip" id="fs10">property Transaction.Confirmations: int</div>
+<div class="tip" id="fs11">val block : Block<br /><br />Full name: Tutorial.block</div>
+<div class="tip" id="fs12">property Transaction.Block: Block</div>
+<div class="tip" id="fs13">property Block.Height: int</div>
+<div class="tip" id="fs14">property Block.MiningpoolName: string</div>
+<div class="tip" id="fs15">val nextBlock : Block<br /><br />Full name: Tutorial.nextBlock</div>
+<div class="tip" id="fs16">val GetBlock : block:string -&gt; Block<br /><br />Full name: BlocktrailSdk.Client.GetBlock</div>
+<div class="tip" id="fs17">property Block.NextBlock: string</div>
+<div class="tip" id="fs18">val transactions : PagingResponse&lt;RelatedTransaction&gt;<br /><br />Full name: Tutorial.transactions</div>
+<div class="tip" id="fs19">member Block.GetTransactions : page:int * limit:int * sort_dir:string -&gt; PagingResponse&lt;RelatedTransaction&gt;</div>
+<div class="tip" id="fs20">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs21">val iteri : action:(int -&gt; &#39;T -&gt; unit) -&gt; source:seq&lt;&#39;T&gt; -&gt; unit<br /><br />Full name: Microsoft.FSharp.Collections.Seq.iteri</div>
+<div class="tip" id="fs22">val i : int</div>
+<div class="tip" id="fs23">val x : RelatedTransaction</div>
+<div class="tip" id="fs24">property RelatedTransaction.Hash: string</div>
+<div class="tip" id="fs25">val nextLoadOfTransactions : PagingResponse&lt;RelatedTransaction&gt;<br /><br />Full name: Tutorial.nextLoadOfTransactions</div>
+<div class="tip" id="fs26">member PagingResponse.NextPage : unit -&gt; PagingResponse&lt;&#39;T&gt;</div>
 
         </div>
         <div class="span3">

@@ -37,6 +37,7 @@
 
 <h1>PagingResponse<'T></h1>
 <div class="xmldoc">
+<p>Processed Paging response. Added functionality to improve paging experience.</p>
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -47,15 +48,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
+          <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
             new(id, sortDir, data, reqfunc)
           </code>
-          <div class="tip" id="69">
+          <div class="tip" id="46">
             <strong>Signature:</strong> (id:string * sortDir:string * data:Paging&lt;&#39;T&gt; * reqfunc:(string -&gt; int -&gt; int -&gt; string -&gt; string)) -&gt; PagingResponse&lt;&#39;T&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L92-92" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L102-102" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -73,15 +74,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
+          <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
             GetPage(page)
           </code>
-          <div class="tip" id="70">
+          <div class="tip" id="47">
             <strong>Signature:</strong> page:int -&gt; PagingResponse&lt;&#39;T&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L119-119" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L115-115" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -91,15 +92,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
+          <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
             Limit
           </code>
-          <div class="tip" id="71">
+          <div class="tip" id="48">
             <strong>Signature:</strong> int<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L99-99" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L107-107" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -109,15 +110,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '72', 72)" onmouseover="showTip(event, '72', 72)">
+          <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
             NextPage()
           </code>
-          <div class="tip" id="72">
+          <div class="tip" id="49">
             <strong>Signature:</strong> unit -&gt; PagingResponse&lt;&#39;T&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L132-132" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L124-124" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -127,11 +128,65 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
+          <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
             NextPageAvailable()
           </code>
-          <div class="tip" id="73">
+          <div class="tip" id="50">
             <strong>Signature:</strong> unit -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L111-111" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+            Page
+          </code>
+          <div class="tip" id="51">
+            <strong>Signature:</strong> int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L109-109" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
+            PageAvailable(page)
+          </code>
+          <div class="tip" id="52">
+            <strong>Signature:</strong> page:int -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L110-110" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
+            Pages
+          </code>
+          <div class="tip" id="53">
+            <strong>Signature:</strong> int<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -145,51 +200,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
-            Page
-          </code>
-          <div class="tip" id="74">
-            <strong>Signature:</strong> int<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L101-101" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
-            PageAvailable(page)
-          </code>
-          <div class="tip" id="75">
-            <strong>Signature:</strong> page:int -&gt; bool<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L103-103" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '76', 76)" onmouseover="showTip(event, '76', 76)">
+          <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
             PrevPage()
           </code>
-          <div class="tip" id="76">
+          <div class="tip" id="54">
             <strong>Signature:</strong> unit -&gt; PagingResponse&lt;&#39;T&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L129-129" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L123-123" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -199,15 +218,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '77', 77)" onmouseover="showTip(event, '77', 77)">
+          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
             PrevPageAvailable()
           </code>
-          <div class="tip" id="77">
+          <div class="tip" id="55">
             <strong>Signature:</strong> unit -&gt; bool<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L116-116" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L112-112" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
@@ -217,15 +236,15 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '78', 78)" onmouseover="showTip(event, '78', 78)">
+          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
             Total
           </code>
-          <div class="tip" id="78">
+          <div class="tip" id="56">
             <strong>Signature:</strong> int64<br />
                       </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L100-100" class="github-link">
+            <a href="http://github.com/raymens/BlocktrailSdk/tree/master/src/BlocktrailSdk/Models.fs#L108-108" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
