@@ -35,7 +35,7 @@
           
 <h1>BlocktrailSdk</h1>
 
-<p>Documentation</p>
+<p><strong>SOON</strong></p>
 
 <div class="row">
   <div class="span1"></div>
@@ -50,7 +50,7 @@
 
 <h2>Example</h2>
 
-<p>This example demonstrates using a function defined in this sample library.</p>
+<p>This example demonstrates retrieving transaction information using a hash.</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
@@ -63,6 +63,7 @@
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
+<span class="l">11: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
@@ -72,7 +73,8 @@
 
 <span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">Config</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">ApiKey</span> <span class="o">&lt;-</span> <span class="s">&quot;</span><span class="s">INSERT_YOUR_API_KEY</span><span class="s">&quot;</span>;
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">transaction</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">Client</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">GetTransaction</span> <span class="s">&quot;</span><span class="s">c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad</span><span class="s">&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="i">transaction</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="i">BlocktrailSdk</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">Client</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="i">GetTransaction</span> <span class="s">&quot;</span><span class="s">c326105f7fbfa4e8fe971569ef8858f47ee7e4aa5e8e7c458be8002be3d86aad</span><span class="s">&quot;</span>
 
 <span onmouseout="hideTip(event, 'fs8', 11)" onmouseover="showTip(event, 'fs8', 11)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Hash</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">Hash</span>
 <span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Confirmations</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs5', 15)" onmouseover="showTip(event, 'fs5', 15)" class="i">transaction</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">Confirmations</span></pre>
@@ -83,7 +85,7 @@
 <h2>Samples &amp; documentation</h2>
 
 <p>The library comes with comprehensible documentation. 
-It can include tutorials automatically generated from <code>*.fsx</code> files in <a href="https://github.com/raymens/BlocktrailSdk/tree/master/docs/content">the content folder</a>. 
+It includes tutorials automatically generated from <code>*.fsx</code> files in <a href="https://github.com/raymens/BlocktrailSdk/tree/master/docs/content">the content folder</a>. 
 The API reference is automatically generated from Markdown comments in the library implementation.</p>
 
 <ul>
@@ -128,7 +130,7 @@ redistribution for both commercial and non-commercial purposes. For more informa
             <li><a href="/BlocktrailSdk/release-notes.html">Release Notes</a></li>
             
             <li class="nav-header">Getting started</li>
-            <li><a href="/BlocktrailSdk/tutorial.html">Sample tutorial</a></li>
+            <li><a href="/BlocktrailSdk/tutorial.html">Tutorial</a></li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/BlocktrailSdk/reference/index.html">API Reference</a></li>

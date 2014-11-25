@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>#Introduction
+    <title>Introduction
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="SDK for blocktrail.com"/>
@@ -33,18 +33,20 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1>#Introduction</h1>
+<h1>Introduction</h1>
 
 <p>Blocktrail does not provide a .NET implementation of their SDK so I decided to build one on my own (feel free to contribute!).
 This .NET SDK is written in F# and tries to keep it as C# friendly as possible, keep this in mind when contributing as it is a vital requirement.
 The client implements some of the same methods as the official ones. The idea was to differ in some ways.</p>
 
-<p>E.G.: implementing the request for unconfirmed transactions of a address as a method on the address object instead of an API call from the client object.</p>
+<p>E.G.: implementing the request for <code>unconfirmed transactions of an address</code> as a method on the <code>Address</code> object instead of an API call from the client module.</p>
 
-<p>We start the tutorial by setting up the API. The first thing to notice is that it's built in F# modules which are basicaly statis classes. 
-This might change in the future, but at this moment it is not possible to use multiple API keys.</p>
+<p>We start the tutorial by setting up the API. The first thing to notice is that it's built in F# modules which are basically statis classes. 
+This might change in the future, but at this moment it is <strong>not</strong> possible to use multiple API keys.</p>
 
 <p>If you don't have a Blocktrail API key yet go get one at <a href="https://www.blocktrail.com/signup">Blocktrail.com</a>, it's free!</p>
+
+<h1>Basics</h1>
 
 <p>Copy the snippet below and replace the APIKey placeholder with your api key you requested.</p>
 
@@ -69,6 +71,8 @@ This might change in the future, but at this moment it is not possible to use mu
 </td>
 </tr>
 </table>
+
+<h1>Relational properties and methods</h1>
 
 <p>This will retrieve the the transaction of that specific hash.
 After retrieving it you can print and use it's values as shown in the next snippet.</p>
@@ -100,6 +104,8 @@ After retrieving it you can print and use it's values as shown in the next snipp
 </td>
 </tr>
 </table>
+
+<h1>Pagination</h1>
 
 <p>And why stop there... let's retrieve the next block and a page of it's transactions.
 Remember that responses that contains lists are often paginated. That means the reponse
@@ -179,7 +185,7 @@ Go explore the blockchain on your own and be sure to file any issues or suggesti
             <li><a href="/BlocktrailSdk/release-notes.html">Release Notes</a></li>
             
             <li class="nav-header">Getting started</li>
-            <li><a href="/BlocktrailSdk/tutorial.html">Sample tutorial</a></li>
+            <li><a href="/BlocktrailSdk/tutorial.html">Tutorial</a></li>
 
             <li class="nav-header">Documentation</li>
             <li><a href="/BlocktrailSdk/reference/index.html">API Reference</a></li>
