@@ -1,5 +1,8 @@
 ﻿namespace BlocktrailSdk
 
+/// <summary>
+/// Contains methods to retreive data from the blockchain using the Blocktrail API.
+/// </summary>
 module Client = 
     open BlocktrailSdk.Models
     open BlocktrailSdk.Helpers
@@ -7,14 +10,14 @@ module Client =
     open System.Runtime.InteropServices
     
     /// <summary>
-    /// Get a specific block
+    /// Retrieve a specific block
     /// </summary>
     let public GetBlock block = 
         let response = getBlockResponse block
         convertToObject<Block> response
     
     /// <summary>
-    /// Get the latest block
+    /// Retrieve the latest block
     /// </summary>
     let public GetLastBlock() = 
         let response = getLastBlockResponse()
@@ -40,18 +43,19 @@ module Client =
         let response = getAllBlocksResponse checkedPage checkedLimit checkedSortDir
         let convertedResponse = convertToObject<Paging<Block>> response
         // create altered function because PagingResponse requires too many args
-        let altered = fun x y z b -> getAllBlocksResponse y z b
+        let altered = fun _ y z b -> getAllBlocksResponse y z b
         new PagingResponse<Block>(String.Empty, checkedSortDir, convertedResponse, altered)
     
     /// <summary>
-    /// Get a specific transaction
+    /// Retrieve a specific address
     /// </summary>
     let public GetTransaction trans = 
         let response = getTransactionResponse trans
         convertToObject<Transaction> response
     
     /// <summary>
-    /// Get a specific address
+    /// Will retrieve a specific address containing basic info such as the current balance, 
+    /// the total amount received, and the number of transactions made. 
     /// </summary>
     let public GetAddress addr = 
         let response = getAddressResponse addr
