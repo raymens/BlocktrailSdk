@@ -1,9 +1,6 @@
 ﻿using BlocktrailSdk.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlocktrailSdk.SampleCSharp
 {
@@ -11,28 +8,28 @@ namespace BlocktrailSdk.SampleCSharp
     {
         static void Main(string[] args)
         {
-            string apiKey = "INSERT_API_KEY_HERE";
+            string apiKey = "INSERT YOUR API KEY HERE";
 
-            BlocktrailSdk.Config.ApiKey = apiKey;
+            var client = new BlocktrailSdk.Client(apiKey);
 
-            Block specificBlock = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
-            var blockTransactions = specificBlock.GetTransactions(page: 1, limit: 100);
+            Block specificBlock = client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
+            var blockTransactions = client.GetBlockTransactions(specificBlock.Hash, page: 1, limit: 100);
 
             string transactionHash = blockTransactions.First().Hash;
 
-            Transaction refetchTransaction = BlocktrailSdk.Client.GetTransaction(transactionHash);
-            Block transactionBlock = refetchTransaction.Block;
-
+            Transaction refetchTransaction = client.GetTransaction(transactionHash);
+            Block transactionBlock = client.GetBlock(refetchTransaction.BlockHash);
+            
             // Print nr of confirmations
             Console.WriteLine("Transaction: " + refetchTransaction.Hash);
             Console.WriteLine("\t# confirmations: " + refetchTransaction.Confirmations);
             Console.WriteLine("\tBlock: " + transactionBlock.Height + Environment.NewLine);
 
-            Address addrObj = BlocktrailSdk.Client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
+            Address addrObj = client.GetAddress("1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC");
 
-            var addrTrans = addrObj.GetTransactions();
-            var uncAddrTrans = addrObj.GetUnconfirmedTransactions();
-            var unspOutTrans = addrObj.GetUnspentOutputs();
+            var addrTrans = client.GetAddressTransactions(addrObj.Hash160);
+            var uncAddrTrans = client.GetAddressUnconfirmedTransactions(addrObj.Hash160);
+            var unspOutTrans = client.GetAddressUnspentOutputs(addrObj.Hash160);
 
             Console.WriteLine("Address: " + addrObj.Hash160);
             Console.WriteLine("\tBalance: " + addrObj.Balance + Environment.NewLine);
@@ -43,7 +40,7 @@ namespace BlocktrailSdk.SampleCSharp
             // Start printing rows of transactions
             int i = 0;
 
-            var transactions = specificBlock.GetTransactions(1, 100);
+            var transactions = client.GetBlockTransactions(transactionBlock.Hash, 1, 100);
 
             foreach (var item in transactions)
             {

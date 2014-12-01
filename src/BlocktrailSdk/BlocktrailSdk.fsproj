@@ -430,9 +430,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Config.fs" />
     <Compile Include="Helpers.fs" />
     <Compile Include="Models.fs" />
+    <Compile Include="PagingResponse.fs" />
     <Compile Include="Client.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
