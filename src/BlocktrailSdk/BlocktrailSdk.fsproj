@@ -9,8 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BlocktrailSdk</RootNamespace>
     <AssemblyName>BlocktrailSdk</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>BlocktrailSdk</Name>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -65,18 +65,11 @@
         <When Condition="$(TargetFrameworkVersion) == 'v1.1'">
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v2.0'">
-          <ItemGroup>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net20\Newtonsoft.Json.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-          </ItemGroup>
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v3.5'">
           <ItemGroup>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net35\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net35\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -89,13 +82,13 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net40-client\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net40\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -111,17 +104,58 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net40-client\PWDTK.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net40\PWDTK.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
+        <When Condition="$(TargetFrameworkVersion) == 'v4.5'">
+          <ItemGroup>
+            <Reference Include="FSharp.Data">
+              <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
+              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="System.Xml.Linq">
+            <Reference Include="System.Data.SQLite">
+              <HintPath>..\..\packages\System.Data.SQLite.Core\lib\net45\System.Data.SQLite.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="protobuf-net">
+              <HintPath>..\..\packages\protobuf-net\lib\net40\protobuf-net.dll</HintPath>
+              <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -133,17 +167,24 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="System.Xml.Linq">
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net451\PWDTK.dll</HintPath>
+              <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -152,15 +193,6 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETPortable'">
       <Choose>
-        <When Condition="$(TargetFrameworkProfile) == 'Profile136' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
-          <ItemGroup>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-          </ItemGroup>
-        </When>
         <When Condition="$(TargetFrameworkProfile) == 'net40+sl5+wp8+win8' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
           <ItemGroup>
             <Reference Include="FSharp.Data">
@@ -170,19 +202,39 @@
             </Reference>
           </ItemGroup>
         </When>
-        <When Condition="$(TargetFrameworkProfile) == 'Profile136' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+        <When Condition="$(TargetFrameworkProfile) == 'net45+win+wpa81+wp80+xamarin.ios10+monoandroid10+monotouch10' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
           <ItemGroup>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
         </When>
-        <When Condition="$(TargetFrameworkProfile) == 'net45+wp80+win8+wpa81+aspnetcore50' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+        <When Condition="$(TargetFrameworkProfile) == 'net45+win+wpa81+xamarin.ios10+monoandroid10+monotouch10' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
           <ItemGroup>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -195,13 +247,18 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Newtonsoft.Json">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -216,17 +273,24 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
+        <Reference Include="NBitcoin.BouncyCastle">
+          <HintPath>..\..\packages\NBitcoin\lib\MonoAndroid\NBitcoin.BouncyCastle.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="NBitcoin">
+          <HintPath>..\..\packages\NBitcoin\lib\MonoAndroid\NBitcoin.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <HintPath>..\..\packages\NBitcoin\lib\MonoAndroid\Newtonsoft.Json.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Zlib.Portable">
-          <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+        <Reference Include="PWDTK">
+          <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
           <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="System.Xml.Linq">
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -238,17 +302,24 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
+        <Reference Include="NBitcoin.BouncyCastle">
+          <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="NBitcoin">
+          <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Zlib.Portable">
-          <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+        <Reference Include="PWDTK">
+          <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
           <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="System.Xml.Linq">
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -262,17 +333,24 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="System.Xml.Linq">
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
+              <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -284,17 +362,24 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="System.Xml.Linq">
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
+              <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -306,13 +391,23 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -327,13 +422,23 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+        <Reference Include="Mono.Nat">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Zlib.Portable">
-          <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+        <Reference Include="NBitcoin.BouncyCastle">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="NBitcoin">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="PWDTK">
+          <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -348,17 +453,24 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="System.Xml.Linq">
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
+              <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -370,13 +482,23 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <Reference Include="Mono.Nat">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -389,17 +511,24 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
+            <Reference Include="NBitcoin.BouncyCastle">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.BouncyCastle.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="NBitcoin">
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Zlib.Portable">
-              <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+            <Reference Include="PWDTK">
+              <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-            <Reference Include="System.Xml.Linq">
               <Paket>True</Paket>
             </Reference>
           </ItemGroup>
@@ -413,17 +542,24 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+        <Reference Include="Mono.Nat">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\Mono.Nat.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Zlib.Portable">
-          <HintPath>..\..\packages\Zlib.Portable\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+        <Reference Include="NBitcoin.BouncyCastle">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.BouncyCastle.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="System.Xml.Linq">
+        <Reference Include="NBitcoin">
+          <HintPath>..\..\packages\NBitcoin\lib\net45\NBitcoin.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="PWDTK">
+          <HintPath>..\..\packages\PWDTK\lib\net451\PWDTK.dll</HintPath>
+          <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -434,6 +570,8 @@
     <Compile Include="Models.fs" />
     <Compile Include="PagingResponse.fs" />
     <Compile Include="BIP32Path.fs" />
+    <Compile Include="BIP44.fs" />
+    <Compile Include="BIP32.fs" />
     <Compile Include="BIP39.fs" />
     <Compile Include="Wallet.fs" />
     <Compile Include="Client.fs" />
@@ -441,9 +579,24 @@
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BIP39">
+      <HintPath>..\..\lib\BIP39.NET\BIP39.dll</HintPath>
+    </Reference>
+    <Reference Include="BitcoinUtilities">
+      <HintPath>..\..\lib\BIP39.NET\BitcoinUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\lib\BIP39.NET\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="KeyCore">
+      <HintPath>..\..\lib\KeyCore.NET\KeyCore.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

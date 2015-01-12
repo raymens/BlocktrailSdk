@@ -1,17 +1,20 @@
 ﻿module Wallet
 
+open FSharp.Data
+
 /// Generate a new mnemonic from some random entropy (512 bit)
 ///
 /// @param string    $forceEntropy           (optional) forced entropy instead of random entropy for testing purposes
 /// @return string
 /// @throws \Exception
 ////
-let generateNewMnemonic (forceEntropy : string option) : string =
-    let entropy = match forceEntropy with
-                  | None -> BIP39.generateEntropy 512
-                  | Some(s) -> s
-
-    BIP39.entropyToMnemonic entropy None
+let generateNewMnemonic (passphrase : string) (forceEntropy : string option) : Bitcoin.BIP39.BIP39 = 
+    let entropy = 
+        match forceEntropy with
+        | None -> BIP39.generateEntropy 512
+        | Some(s) -> s
+    let bytes = System.Text.UnicodeEncoding.Default.GetBytes(entropy)
+    new Bitcoin.BIP39.BIP39(bytes, passphrase)
 
 /// Create a new key;
 ///  1) a BIP39 mnemonic
@@ -22,21 +25,23 @@ let generateNewMnemonic (forceEntropy : string option) : string =
 /// @param string    $forceEntropy           (optional) forced entropy instead of random entropy for testing purposes
 /// @return array
 ////
-let generateNewSeed passphrase (forceEntropy : string option) =
-    (*
-        // generate master seed, retry if the generated private key isn't valid (FALSE is returned)
-        do {
-            $mnemonic = $this->generateNewMnemonic($forceEntropy);
+let generateNewSeed passphrase (forceEntropy : string option) = 
+    let mnemonic = generateNewMnemonic passphrase forceEntropy
 
-            $seed = BIP39::mnemonicToSeedHex($mnemonic, $passphrase);
+    let extKey = new NBitcoin.ExtKey(mnemonic.SeedBytesHexString)
+    
+    let btc = new NBitcoin.BitcoinExtKey(extKey, NBitcoin.Network.TestNet)
+    (mnemonic.MnemonicSentence, mnemonic.SeedBytesHexString, btc)
 
-            $key = BIP32::master_key($seed, $this->network, $this->testnet);
-        } while (!$key);
-
-        return [$mnemonic, $seed, $key];
-    }
-    *)
-    ("", "", "")
+let generatePrivateKey seed = 
+    let seedBytes = NBitcoin.DataEncoders.Encoders.Hex.DecodeData(seed)
+    let haskHey = System.Text.Encoding.UTF8.GetBytes("Bitcoin seed")
+    let hashMAC = NBitcoin.Crypto.Hashes.HMACSHA512(haskHey, seedBytes)
+    
+    let key = 
+        [| for i = 0 to 31 do
+               yield hashMAC.[i] |]
+    key
 
 /// Create new primary key;
 ///  1) a BIP39 mnemonic
@@ -47,9 +52,28 @@ let generateNewSeed passphrase (forceEntropy : string option) =
 /// @return array [mnemonic, seed, key]
 /// @TODO: require a strong password?
 ///
-let newPrimarySeed passPhrase =
-    generateNewSeed passPhrase None
+let newPrimarySeed passPhrase = generateNewSeed passPhrase None
 
+type CreateWallet = 
+    { identifier : string
+      primary_public_key : string
+      backup_public_key : string
+      primary_mnemonic : string
+      checksum : string
+      account : int }
+
+let sendCreateWallet identifier primaryPublicKey backupPublicKey primaryMnemonic checksum account = 
+    let data = { identifier = identifier; primary_public_key = primaryPublicKey; backup_public_key = backupPublicKey; primary_mnemonic = primaryMnemonic; checksum = checksum; account = account }
+    let jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data)
+
+    let response = try
+                        Http.RequestString("https://api.blocktrail.com/v1/BTC/wallet", query = [ "api_key", "" ], httpMethod = "POST", body = TextRequest jsonData)
+                   with 
+                        | :? System.Net.WebException as e -> e.ToString()
+
+    response
+        
+    
 
 ///  create a new wallet
 ///   - will generate a new primary seed (with password) and backup seed (without password)
@@ -60,32 +84,50 @@ let newPrimarySeed passPhrase =
 /// @param      $password
 /// @param int  $account         override for the account to use, this number specifies which blocktrail cosigning key is used
 /// @return array[Wallet, (string)backupMnemonic]
-let createNewWallet (identifier : string) (password : string) (account : int) =
+let createNewWallet (identifier : string) (password : string) (account : int) = 
+    let testnet = true
     // create new primaryseed
-    
+    let primaryMnemonic, primarySeed, primaryPrivateKey = newPrimarySeed password
 
     // create primary public key from the created private key
+    let primaryPublicKey = primaryPrivateKey.ExtKey.Key.PubKey
 
     // create new backup seed
+    let backupMnemonic, backupSeed, backupPrivateKey = newPrimarySeed ""
 
     // create backup public key from the created private key
+    let backupPublicKey = backupPrivateKey.ExtKey.Key.PubKey
 
     // create a checksum of our private key which we'll later use to verify we used the right password
+    (* let key = generatePrivateKey primarySeed.SeedBytesHexString
+    let privateKey = new Bitcoin.KeyCore.PrivateKey(Bitcoin.BitcoinUtilities.Globals.TestAddressVersion, key)
+    let publicKey = new Bitcoin.KeyCore.PublicKey(privateKey, Bitcoin.BitcoinUtilities.Globals.TestAddressVersion)
+    let addr = new Bitcoin.KeyCore.BitcoinAddress(publicKey)
+    let checksum = addr.BitcoinAddressEncodedString *)
+    let checksum = primaryPublicKey.GetAddress(NBitcoin.Network.TestNet).ToString()
+
+    printfn "Primary Mnenomic: %s" primaryMnemonic
+    printfn "Primary Seed: %s" primarySeed
+    printfn "Primary PrivateKey: %s" (primaryPrivateKey.ToString())
+    printfn "Primary PublicKey: %s" (primaryPublicKey.ToString())
+
+    printfn "Backup Mnenomic: %s" backupMnemonic
+    printfn "Backup Seed: %s" backupSeed
+    printfn "Backup PrivateKey: %s" (backupPrivateKey.ToString())
+    printfn "Backup PublicKey: %s" (backupPublicKey.ToString())
+
+    printfn "Checksum: %s" (checksum.ToString())
+
 
     // send the public keys to the server to store them
     //  and the mnemonic, which is safe because it's useless without the password
+    let response = sendCreateWallet identifier (primaryPublicKey.ToString()) (backupPublicKey.ToString()) primaryMnemonic checksum account
 
     // received the blocktrail public keys
-
     // if the response suggest we should upgrade to a different blocktrail cosigning key then we should
-
-        // do the upgrade to the new 'account' number for the BIP44 path
-
+    // do the upgrade to the new 'account' number for the BIP44 path
     // return wallet en mnemonic
-
     0
-
-
 (*
 
     public function createNewWallet($identifier, $password, $account = 0) {

@@ -8,6 +8,9 @@ namespace BlocktrailSdk.SampleCSharp
     {
         static void Main(string[] args)
         {
+            Wallet.createNewWallet("raymen", "test", 0);
+
+
             string apiKey = "INSERT YOUR API KEY HERE";
 
             var client = new BlocktrailSdk.Client(apiKey);

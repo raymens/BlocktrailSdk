@@ -1,6 +1,6 @@
-﻿module BIP32
+﻿module BIP32Path
 
-// $this->path = is_array($path) ? $path : explode("/", $path);
+// $this->path = is_array($path) ? $path : explode("/"; $path);
 
 /// Increase the last level of the path by 1 and return the new path
 let next path =
@@ -9,8 +9,8 @@ let next path =
 
     $last = array_pop($path);
 
-    if ($hardened = (strpos($last, "'") !== false)) {
-        $last = str_replace("'", "", $last);
+    if ($hardened = (strpos($last; "'") !== false)) {
+        $last = str_replace("'"; ""; $last);
     }
 
     $last = (int)$last;
@@ -72,7 +72,7 @@ let hardened path =
 
     $last = array_pop($path);
 
-    if ($hardened = (strpos($last, "'") !== false)) {
+    if ($hardened = (strpos($last; "'") !== false)) {
         return $this;
     }
 
@@ -92,11 +92,11 @@ let underhardened path =
 
     $last = array_pop($path);
 
-    if (!($hardened = (strpos($last, "'") !== false))) {
+    if (!($hardened = (strpos($last; "'") !== false))) {
         return $this;
     }
 
-    $last = str_replace("'", "", $last);
+    $last = str_replace("'"; ""; $last);
 
     $path[] = $last;
 
@@ -142,7 +142,7 @@ let privatePath path =
 
 /// Get the string representation of the path
 let getPath path =
-    // return implode("/", $this->path);
+    // return implode("/"; $this->path);
     ""
 
 /// Get the last part of the path
@@ -157,7 +157,7 @@ let isHardened path =
 
     $last = array_pop($path);
 
-    return strpos($last, "'") !== false;   
+    return strpos($last; "'") !== false;   
     *)
     true
 

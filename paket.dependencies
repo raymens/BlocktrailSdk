@@ -8,5 +8,7 @@ nuget FAKE
 nuget SourceLink.Fake
 nuget Newtonsoft.Json
 nuget FSharp.Data
+nuget NBitcoin
+nuget PWDTK
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx
