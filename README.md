@@ -48,9 +48,7 @@ Subscribe Webhook to Events | - |
 List Webhook Events | - |
 Unsubscribe the Webhook from an Event | - |
 
-### Payments API (closed beta)
-This API is still in closed beta. I'm waiting for the API to be open and released before I can implement it.
-Following functionality is what there is to be expected.
+### Payments API (testnet)
 
 API | Status       |
 ----|--------------|
