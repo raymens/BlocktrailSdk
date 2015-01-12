@@ -138,11 +138,6 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
             <Reference Include="PWDTK">
               <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
@@ -214,11 +209,6 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
           </ItemGroup>
         </When>
         <When Condition="$(TargetFrameworkProfile) == 'net45+win+wpa81+xamarin.ios10+monoandroid10+monotouch10' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
@@ -230,11 +220,6 @@
             </Reference>
             <Reference Include="NBitcoin">
               <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -254,11 +239,6 @@
             </Reference>
             <Reference Include="NBitcoin">
               <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -283,11 +263,6 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\NBitcoin\lib\MonoAndroid\Newtonsoft.Json.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
         <Reference Include="PWDTK">
           <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
           <Private>True</Private>
@@ -309,11 +284,6 @@
         </Reference>
         <Reference Include="NBitcoin">
           <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\NBitcoin.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -521,11 +491,6 @@
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
-            <Reference Include="Newtonsoft.Json">
-              <HintPath>..\..\packages\NBitcoin\lib\portable-net45+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Newtonsoft.Json.dll</HintPath>
-              <Private>True</Private>
-              <Paket>True</Paket>
-            </Reference>
             <Reference Include="PWDTK">
               <HintPath>..\..\packages\PWDTK\lib\net45\PWDTK.dll</HintPath>
               <Private>True</Private>
@@ -577,6 +542,7 @@
     <Compile Include="Client.fs" />
     <None Include="Script.fsx" />
     <None Include="paket.references" />
+    <Compile Include="CustomBip32.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BIP39">

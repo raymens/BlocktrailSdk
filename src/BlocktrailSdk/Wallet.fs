@@ -30,8 +30,7 @@ let generateNewSeed passphrase (forceEntropy : string option) =
 
     let extKey = new NBitcoin.ExtKey(mnemonic.SeedBytesHexString)
     
-    let btc = new NBitcoin.BitcoinExtKey(extKey, NBitcoin.Network.TestNet)
-    (mnemonic.MnemonicSentence, mnemonic.SeedBytesHexString, btc)
+    (mnemonic.MnemonicSentence, mnemonic.SeedBytesHexString, extKey)
 
 let generatePrivateKey seed = 
     let seedBytes = NBitcoin.DataEncoders.Encoders.Hex.DecodeData(seed)
@@ -90,21 +89,18 @@ let createNewWallet (identifier : string) (password : string) (account : int) =
     let primaryMnemonic, primarySeed, primaryPrivateKey = newPrimarySeed password
 
     // create primary public key from the created private key
-    let primaryPublicKey = primaryPrivateKey.ExtKey.Key.PubKey
+    //let primaryPublicKey = primaryPrivateKey.Neuter()
+    let primaryPublicKey = primaryPrivateKey.Key.PubKey
 
     // create new backup seed
     let backupMnemonic, backupSeed, backupPrivateKey = newPrimarySeed ""
 
     // create backup public key from the created private key
-    let backupPublicKey = backupPrivateKey.ExtKey.Key.PubKey
+    //let backupPublicKey = backupPrivateKey.Neuter()
+    let backupPublicKey = backupPrivateKey.Key.PubKey
 
     // create a checksum of our private key which we'll later use to verify we used the right password
-    (* let key = generatePrivateKey primarySeed.SeedBytesHexString
-    let privateKey = new Bitcoin.KeyCore.PrivateKey(Bitcoin.BitcoinUtilities.Globals.TestAddressVersion, key)
-    let publicKey = new Bitcoin.KeyCore.PublicKey(privateKey, Bitcoin.BitcoinUtilities.Globals.TestAddressVersion)
-    let addr = new Bitcoin.KeyCore.BitcoinAddress(publicKey)
-    let checksum = addr.BitcoinAddressEncodedString *)
-    let checksum = primaryPublicKey.GetAddress(NBitcoin.Network.TestNet).ToString()
+    let checksum = primaryPrivateKey.Key.PubKey.ToString(NBitcoin.Network.TestNet)
 
     printfn "Primary Mnenomic: %s" primaryMnemonic
     printfn "Primary Seed: %s" primarySeed
@@ -118,10 +114,9 @@ let createNewWallet (identifier : string) (password : string) (account : int) =
 
     printfn "Checksum: %s" (checksum.ToString())
 
-
     // send the public keys to the server to store them
     //  and the mnemonic, which is safe because it's useless without the password
-    let response = sendCreateWallet identifier (primaryPublicKey.ToString()) (backupPublicKey.ToString()) primaryMnemonic checksum account
+    let response = sendCreateWallet identifier (primaryPublicKey.ToString(NBitcoin.Network.TestNet)) (backupPublicKey.ToString(NBitcoin.Network.TestNet)) primaryMnemonic checksum account
 
     // received the blocktrail public keys
     // if the response suggest we should upgrade to a different blocktrail cosigning key then we should
