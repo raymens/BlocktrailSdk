@@ -133,8 +133,8 @@ let sendCreateWallet identifier (primaryPublicKey : string array) (backupPublicK
           key_index = key_index }
     
     let jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data)
-    let key = "e90a385fc9f5643a48a4278351d34fffe8e8bee4"
-    let secret = "10a199491358f65f9b84ee5d9ea5517c7272a095"
+    let key = "API_KEY"
+    let secret = "API_SECRET"
     let md5 = generateMD5 jsonData
 
     let path = "/v1/tBTC/wallet?api_key=" + key
