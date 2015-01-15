@@ -95,195 +95,137 @@ type Paging<'T> =
 /// <summary>
 /// Transaction returned from the Blocktrail client.
 /// </summary>
-type Transaction() = 
-    
+type Transaction = { 
     [<JsonProperty("hash")>]
-    member val Hash = "" with get, set
-    
+    Hash : string
     [<JsonProperty("first_seen_at")>]
-    member val FirstSeenAt = "" with get, set
-    
+    FirstSeenAt : string
     [<JsonProperty("last_seen_at")>]
-    member val LastSeenAt = "" with get, set
-    
+    LastSeenAt : string 
     [<JsonProperty("block_height")>]
-    member val BlockHeight = 0 with get, set
-    
+    BlockHeight : int 
     [<JsonProperty("block_time")>]
-    member val BlockTime = "" with get, set
-    
+    BlockTime : string 
     [<JsonProperty("block_hash")>]
-    member val BlockHash = "" with get, set
-    
+    BlockHash : string 
     [<JsonProperty("confirmations")>]
-    member val Confirmations = 0 with get, set
-    
+    Confirmations : int
     [<JsonProperty("is_coinbase")>]
-    member val IsCoinbase = false with get, set
-    
+    IsCoinbase : bool
     [<JsonProperty("estimated_value")>]
-    member val EstimatedValue = 0L with get, set
-    
+    EstimatedValue : int64
     [<JsonProperty("total_input_value")>]
-    member val TotalInputValue = 0L with get, set
-    
+    TotalInputValue : int64
     [<JsonProperty("total_output_value")>]
-    member val TotalOutputValue = 0L with get, set
-    
+    TotalOutputValue : int64
     [<JsonProperty("total_fee")>]
-    member val TotalFee = 0 with get, set
-    
+    TotalFee : int
     [<JsonProperty("estimated_change")>]
-    member val EstimatedChange = Nullable.op_Implicit 0L : Nullable<int64> with get, set
-    
+    EstimatedChange : Nullable<int64> 
     [<JsonProperty("estimated_change_address")>]
-    member val EstimatedChangeAddress = "" with get, set
-    
+    EstimatedChangeAddress : string 
     [<JsonProperty("high_priority")>]
-    member val HighPriority = Nullable.op_Implicit false with get, set
-    
+    HighPriority : Nullable<bool>
     [<JsonProperty("enough_fee")>]
-    member val EnoughFee = Nullable.op_Implicit false with get, set
-    
+    EnoughFee : Nullable<bool>
     [<JsonProperty("contains_dust")>]
-    member val ContainsDust = Nullable.op_Implicit false with get, set
-    
+    ContainsDust : Nullable<bool> 
     [<JsonProperty("inputs")>]
-    member val Inputs = null : TransactionInput array with get, set
-    
+    Inputs : TransactionInput array 
     [<JsonProperty("outputs")>]
-    member val Outputs = null : TransactionOutput array with get, set
+    Outputs : TransactionOutput array }
 
 /// <summary>
 /// Transaction that is retrieved from a block.
 /// </summary>
-type RelatedTransaction() = 
-    
+type RelatedTransaction = {
     [<JsonProperty("hash")>]
-    member val Hash = "" with get, set
-    
+    Hash : string 
     [<JsonProperty("time")>]
-    member val Time = "" with get, set
-    
+    Time : string 
     [<JsonProperty("confirmations")>]
-    member val Confirmations = 0 with get, set
-    
+    Confirmations : int
     [<JsonProperty("is_coinbase")>]
-    member val IsCoinbase = false with get, set
-    
+    IsCoinbase : bool
     [<JsonProperty("estimated_value")>]
-    member val EstimatedValue = 0L with get, set
-    
+    EstimatedValue : int64
     [<JsonProperty("total_input_value")>]
-    member val TotalInputValue = 0L with get, set
-    
+    TotalInputValue : int64
     [<JsonProperty("total_output_value")>]
-    member val TotalOutputValue = 0L with get, set
-    
+    TotalOutputValue : int64
     [<JsonProperty("total_fee")>]
-    member val TotalFee = 0 with get, set
-    
+    TotalFee : int
     [<JsonProperty("estimated_change")>]
-    member val EstimatedChange = Nullable.op_Implicit 0L : Nullable<int64> with get, set
-    
+    EstimatedChange : Nullable<int64> 
     [<JsonProperty("estimated_change_address")>]
-    member val EstimatedChangeAddress = "" with get, set
-    
+    EstimatedChangeAddress : string 
     [<JsonProperty("inputs")>]
-    member val Inputs = null : TransactionInput array with get, set
-    
+    Inputs : TransactionInput array 
     [<JsonProperty("outputs")>]
-    member val Outputs = null : TransactionOutput array with get, set
+    Outputs : TransactionOutput array }
 
 /// <summary>
 /// Will retrieve a specific address containing basic info such as the current balance, 
 /// the total amount received, and the number of transactions made. 
 /// </summary>
-type Address() = 
-    
+type Address = {
     [<JsonProperty("address")>]
-    member val Address = "" with get, set
-    
+    Address : string 
     [<JsonProperty("hash160")>]
-    member val Hash160 = "" with get, set
-    
+    Hash160 : string 
     [<JsonProperty("balance")>]
-    member val Balance = 0L with get, set
-    
+    Balance : int64
     [<JsonProperty("received")>]
-    member val Received = 0L with get, set
-    
+    Received : int64
     [<JsonProperty("sent")>]
-    member val Sent = 0L with get, set
-    
+    Sent : int64
     [<JsonProperty("unconfirmed_received")>]
-    member val UnconfirmedReceived = 0 with get, set
-    
+    UnconfirmedReceived : int 
     [<JsonProperty("unconfirmed_sent")>]
-    member val UnconfirmedSent = 0L with get, set
-    
+    UnconfirmedSent : int64
     [<JsonProperty("unconfirmed_transactions")>]
-    member val UnconfirmedTransactions = 0 with get, set
-    
+    UnconfirmedTransactions : int
     [<JsonProperty("total_transactions_in")>]
-    member val TotalTransactionsIn = 0 with get, set
-    
+    TotalTransactionsIn : int
     [<JsonProperty("total_transactions_out")>]
-    member val TotalTransactionsOut = 0 with get, set
-    
+    TotalTransactionsOut : int 
     [<JsonProperty("category")>]
-    member val Category = "" with get, set
-    
+    Category : string 
     [<JsonProperty("tag")>]
-    member val Tag = "" with get, set
+    Tag : string }
 
 /// <summary>
 /// Block containing containing information about the difficulty,
 /// confirmations, transactions and more.
 /// </summary>
-type Block() = 
-    
+type Block = {
     [<JsonProperty("hash")>]
-    member val Hash = "" with get, set
-    
+    Hash : string 
     [<JsonProperty("height")>]
-    member val Height = 0 with get, set
-    
+    Height : int 
     [<JsonProperty("block_time")>]
-    member val BlockTime = "" with get, set
-    
+    BlockTime : string 
     [<JsonProperty("difficulty")>]
-    member val Difficulty = 0L with get, set
-    
+    Difficulty : int64
     [<JsonProperty("merkleroot")>]
-    member val Merkleroot = "" with get, set
-    
+    Merkleroot : string 
     [<JsonProperty("is_orphan")>]
-    member val IsOrphan = false with get, set
-    
+    IsOrphan : bool
     [<JsonProperty("prev_block")>]
-    member val PrevBlock = "" with get, set
-    
+    PrevBlock : string 
     [<JsonProperty("next_block")>]
-    member val NextBlock = "" with get, set
-    
+    NextBlock : string 
     [<JsonProperty("byte_size")>]
-    member val ByteSize = 0 with get, set
-    
+    ByteSize : int
     [<JsonProperty("confirmations")>]
-    member val Confirmations = 0 with get, set
-    
+    Confirmations : int
     [<JsonProperty("transactions")>]
-    member val Transactions = 0 with get, set
-    
+    Transactions : int
     [<JsonProperty("value")>]
-    member val Value = 0L with get, set
-    
+    Value : int64
     [<JsonProperty("miningpool_name")>]
-    member val MiningpoolName = "" with get, set
-    
+    MiningpoolName : string 
     [<JsonProperty("miningpool_url")>]
-    member val MiningpoolUrl = "" with get, set
-    
+    MiningpoolUrl : string 
     [<JsonProperty("miningpool_slug")>]
-    member val MiningpoolSlug = "" with get, set
+    MiningpoolSlug : string }

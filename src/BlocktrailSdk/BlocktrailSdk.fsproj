@@ -758,7 +758,6 @@
     <Compile Include="Helpers.fs" />
     <Compile Include="Models.fs" />
     <Compile Include="PagingResponse.fs" />
-    <Compile Include="BIP32Path.fs" />
     <Compile Include="BIP39.fs" />
     <Compile Include="Wallet.fs" />
     <Compile Include="Client.fs" />

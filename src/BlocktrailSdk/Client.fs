@@ -10,7 +10,7 @@ open FSharp.Data
 /// <summary>
 /// Contains methods to retreive data from the blockchain using the Blocktrail API.
 /// </summary>
-type Client(apiKey) = 
+type Client(apiKey, apiSecret) = 
     
     let request url args = 
         let resp = requestGet url apiKey args
