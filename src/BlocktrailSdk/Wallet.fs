@@ -147,6 +147,7 @@ let sendCreateWallet identifier (primaryPublicKey : string array) (backupPublicK
     let httpRequest = new System.Net.Http.HttpRequestMessage()
     httpRequest.Headers.Add("Authorization", authorizationHeader)
     httpRequest.Headers.Add("Date", date)
+    httpRequest.Headers.Add("User-Agent", "raymens/blocktrail-sdk/0.0.1")
     httpRequest.Headers.Add("Signature", signatureHeaderValue)
     httpRequest.Method <- System.Net.Http.HttpMethod.Post
     httpRequest.RequestUri <- new System.Uri("https://api.blocktrail.com" + path)

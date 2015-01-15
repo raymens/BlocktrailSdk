@@ -9,6 +9,6 @@ module internal Helpers =
     let apiEndpoint = "https://api.blocktrail.com/v1/BTC/"
 
     let requestGet url key args = 
-        Http.RequestString(apiEndpoint + url, query = [ "api_key", key ] @ args, httpMethod = "GET")
+        Http.RequestString(apiEndpoint + url, query = [ "api_key", key ] @ args, httpMethod = "GET", headers = [ HttpRequestHeaders.UserAgent "raymens/blocktrail-sdk/0.0.1" ])
     let convertToObject<'T> json = JsonConvert.DeserializeObject<'T>(json)
     let populateObject json obj = JsonConvert.PopulateObject(json, obj)
