@@ -8,9 +8,9 @@ namespace BlocktrailSdk.SampleCSharp
     {
         static void Main(string[] args)
         {
-            Wallet.createNewWallet("raymen", "test", 0);
+            Wallet.createNewWallet("testname", "test", 0);
 
-
+            /*
             string apiKey = "INSERT YOUR API KEY HERE";
 
             var client = new BlocktrailSdk.Client(apiKey);
@@ -65,8 +65,9 @@ namespace BlocktrailSdk.SampleCSharp
                 Console.WriteLine("Press a key to fetch the next page of results.");
                 Console.ReadKey();
             } while (transactions.NextPageAvailable());
+            */
 
-            Console.WriteLine("Press a key to close the sample.");
+            //Console.WriteLine("Press a key to close the sample.");
             Console.ReadKey();
         }
     }

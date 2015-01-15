@@ -10,5 +10,6 @@ nuget Newtonsoft.Json
 nuget FSharp.Data
 nuget NBitcoin
 nuget PWDTK
+nuget HttpSignatures
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx

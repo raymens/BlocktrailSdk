@@ -1,6 +1,9 @@
 ﻿module Wallet
 
 open FSharp.Data
+open HttpSignatures
+
+
 
 /// Generate a new mnemonic from some random entropy (512 bit)
 ///
@@ -13,6 +16,7 @@ let generateNewMnemonic (passphrase : string) (forceEntropy : string option) : B
         match forceEntropy with
         | None -> BIP39.generateEntropy 512
         | Some(s) -> s
+    
     let bytes = System.Text.UnicodeEncoding.Default.GetBytes(entropy)
     new Bitcoin.BIP39.BIP39(bytes, passphrase)
 
@@ -27,9 +31,7 @@ let generateNewMnemonic (passphrase : string) (forceEntropy : string option) : B
 ////
 let generateNewSeed passphrase (forceEntropy : string option) = 
     let mnemonic = generateNewMnemonic passphrase forceEntropy
-
     let extKey = new NBitcoin.ExtKey(mnemonic.SeedBytesHexString)
-    
     (mnemonic.MnemonicSentence, mnemonic.SeedBytesHexString, extKey)
 
 let generatePrivateKey seed = 
@@ -55,24 +57,108 @@ let newPrimarySeed passPhrase = generateNewSeed passPhrase None
 
 type CreateWallet = 
     { identifier : string
-      primary_public_key : string
-      backup_public_key : string
+      primary_public_key : string array
+      backup_public_key : string array
       primary_mnemonic : string
       checksum : string
-      account : int }
+      key_index : int }
 
-let sendCreateWallet identifier primaryPublicKey backupPublicKey primaryMnemonic checksum account = 
-    let data = { identifier = identifier; primary_public_key = primaryPublicKey; backup_public_key = backupPublicKey; primary_mnemonic = primaryMnemonic; checksum = checksum; account = account }
-    let jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data)
+let convertByteArray2String (bytes : byte array) = System.BitConverter.ToString(bytes).Replace("-", "").ToLower(); //bytes |> Array.fold (fun s x -> s + x.ToString("x2")) ""
 
-    let response = try
-                        Http.RequestString("https://api.blocktrail.com/v1/BTC/wallet", query = [ "api_key", "" ], httpMethod = "POST", body = TextRequest jsonData)
-                   with 
-                        | :? System.Net.WebException as e -> e.ToString()
+let readBytes (str : string) : byte array = 
+    System.Text.Encoding.ASCII.GetBytes(str)
 
-    response
-        
+let hexDecode (str : string) : byte array =
+    str
+    |> Seq.windowed 2
+    |> Seq.mapi (fun i j -> (i,j))
+    |> Seq.filter (fun (i,j) -> i % 2=0)
+    |> Seq.map (fun (_,j) -> System.Byte.Parse(new System.String(j),System.Globalization.NumberStyles.AllowHexSpecifier))
+    |> Array.ofSeq 
+
+let generateMD5 (str : string) : string = 
+    use md5 = System.Security.Cryptography.MD5.Create()
+    let bts = readBytes str
+    let retVal = md5.ComputeHash(bts)
+    convertByteArray2String retVal
+
+let generateHMACSHA256 (data : byte array) (key : byte array) = 
+    use hmac = new System.Security.Cryptography.HMACSHA256(key)
+    hmac.ComputeHash(data)
+
+let base64 (bytes : byte array) : string = 
+    System.Convert.ToBase64String(bytes)
+
+
+let sign (str : string) (secret : string) : byte array =
+    (generateHMACSHA256 (readBytes str) (hexDecode secret))
+
+let signLib (api_key : string) (secret : string) (md5 : string) date path =
+    let signer = new HttpSigner(new AuthorizationParser(), new HttpSignatureStringExtractor());
+
+    let request = new Request();
+    request.Path <- path
+    request.Method <- System.Net.Http.HttpMethod.Post
+    //request.SetHeader("host", "api.blocktrail.com");
+    request.SetHeader("Date", date);
+    request.SetHeader("Content-md5", md5);
+
+    let spec = new SignatureSpecification()
+    spec.Algorithm <- "hmac-sha256"
+    spec.Headers <- [| "(request-target)"; "date";  "content-md5" |] |> Seq.ofArray
+    spec.KeyId <- api_key
+
+    let secret = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(secret))
+
+    signer.Sign(request, spec, spec.KeyId, secret)
+
+    let dict = new System.Collections.Generic.Dictionary<string, string>()
+    dict.Add(api_key, secret)
+    let keyStore = new KeyStore(dict)
+
+    let signatureString = (new HttpSignatureStringExtractor()).ExtractSignatureString(request, spec)
     
+
+    let signature = signer.Signature(request, spec, keyStore);  
+
+    (request.Headers.["Authorization"], signature.Signature, signatureString)
+
+let sendCreateWallet identifier (primaryPublicKey : string array) (backupPublicKey : string array) primaryMnemonic checksum key_index = 
+    let data = 
+        { identifier = identifier
+          primary_public_key = primaryPublicKey
+          backup_public_key = backupPublicKey
+          primary_mnemonic = primaryMnemonic
+          checksum = checksum
+          key_index = key_index }
+    
+    let jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(data)
+    let key = "e90a385fc9f5643a48a4278351d34fffe8e8bee4"
+    let secret = "10a199491358f65f9b84ee5d9ea5517c7272a095"
+    let md5 = generateMD5 jsonData
+
+    let path = "/v1/tBTC/wallet?api_key=" + key
+    
+    let date = System.DateTime.UtcNow.ToString("R")
+    let authorizationHeader, signatureSigned, signatureString = signLib key secret md5 date path
+
+    let signatureHeaderValue = authorizationHeader.Substring(10)
+
+    let httpRequest = new System.Net.Http.HttpRequestMessage()
+    httpRequest.Headers.Add("Authorization", authorizationHeader)
+    httpRequest.Headers.Add("Date", date)
+    httpRequest.Headers.Add("Signature", signatureHeaderValue)
+    httpRequest.Method <- System.Net.Http.HttpMethod.Post
+    httpRequest.RequestUri <- new System.Uri("https://api.blocktrail.com" + path)
+    httpRequest.Content <- new System.Net.Http.StringContent(jsonData)
+    httpRequest.Content.Headers.Add("Content-MD5", md5)
+    httpRequest.Content.Headers.ContentType <- new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+    let client = new System.Net.Http.HttpClient()
+    let response2 = (client.SendAsync(httpRequest)).Result
+
+    let statusCode, response = (response2.StatusCode.ToString(), response2.Content.ReadAsStringAsync().Result)
+
+    (statusCode, response)
 
 ///  create a new wallet
 ///   - will generate a new primary seed (with password) and backup seed (without password)
@@ -83,45 +169,39 @@ let sendCreateWallet identifier primaryPublicKey backupPublicKey primaryMnemonic
 /// @param      $password
 /// @param int  $account         override for the account to use, this number specifies which blocktrail cosigning key is used
 /// @return array[Wallet, (string)backupMnemonic]
-let createNewWallet (identifier : string) (password : string) (account : int) = 
-    let testnet = true
+let createNewWallet (identifier : string) (password : string) (key_index : int) = 
     // create new primaryseed
     let primaryMnemonic, primarySeed, primaryPrivateKey = newPrimarySeed password
-
     // create primary public key from the created private key
     //let primaryPublicKey = primaryPrivateKey.Neuter()
-    let primaryPublicKey = primaryPrivateKey.Key.PubKey
-
+    let keyPath = new NBitcoin.KeyPath("0'")
+    let primaryPublicKey = primaryPrivateKey.Derive(keyPath).Neuter()
     // create new backup seed
     let backupMnemonic, backupSeed, backupPrivateKey = newPrimarySeed ""
-
     // create backup public key from the created private key
     //let backupPublicKey = backupPrivateKey.Neuter()
-    let backupPublicKey = backupPrivateKey.Key.PubKey
-
+    let backupPublicKey = backupPrivateKey.Neuter()
     // create a checksum of our private key which we'll later use to verify we used the right password
     let checksum = primaryPrivateKey.Key.PubKey.ToString(NBitcoin.Network.TestNet)
-
-    printfn "Primary Mnenomic: %s" primaryMnemonic
-    printfn "Primary Seed: %s" primarySeed
-    printfn "Primary PrivateKey: %s" (primaryPrivateKey.ToString())
-    printfn "Primary PublicKey: %s" (primaryPublicKey.ToString())
-
-    printfn "Backup Mnenomic: %s" backupMnemonic
-    printfn "Backup Seed: %s" backupSeed
-    printfn "Backup PrivateKey: %s" (backupPrivateKey.ToString())
-    printfn "Backup PublicKey: %s" (backupPublicKey.ToString())
-
-    printfn "Checksum: %s" (checksum.ToString())
-
+//    printfn "Primary Mnenomic: %s" primaryMnemonic
+//    printfn "Primary Seed: %s" primarySeed
+//    printfn "Primary PrivateKey: %s" (primaryPrivateKey.ToString())
+//    printfn "Primary PublicKey: %s" (primaryPublicKey.ToString())
+//    printfn "Backup Mnenomic: %s" backupMnemonic
+//    printfn "Backup Seed: %s" backupSeed
+//    printfn "Backup PrivateKey: %s" (backupPrivateKey.ToString())
+//    printfn "Backup PublicKey: %s" (backupPublicKey.ToString())
+//    printfn "Checksum: %s" (checksum.ToString())
     // send the public keys to the server to store them
     //  and the mnemonic, which is safe because it's useless without the password
-    let response = sendCreateWallet identifier (primaryPublicKey.ToString(NBitcoin.Network.TestNet)) (backupPublicKey.ToString(NBitcoin.Network.TestNet)) primaryMnemonic checksum account
-
+    let statusCode, response = 
+        sendCreateWallet identifier [| (primaryPublicKey.ToString(NBitcoin.Network.TestNet)); "M/0'" |]
+            [| (backupPublicKey.ToString(NBitcoin.Network.TestNet)); "M" |] primaryMnemonic checksum key_index
     // received the blocktrail public keys
     // if the response suggest we should upgrade to a different blocktrail cosigning key then we should
     // do the upgrade to the new 'account' number for the BIP44 path
     // return wallet en mnemonic
+    printfn "%s %s" statusCode response
     0
 (*
 

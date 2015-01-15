@@ -68,6 +68,16 @@
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v3.5'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net35\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net35\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="PWDTK">
               <HintPath>..\..\packages\PWDTK\lib\net35\PWDTK.dll</HintPath>
               <Private>True</Private>
@@ -77,6 +87,16 @@
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v4.0' And $(TargetFrameworkProfile) == 'Client'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
               <Private>True</Private>
@@ -99,6 +119,16 @@
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v4.0'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
               <Private>True</Private>
@@ -118,8 +148,23 @@
         </When>
         <When Condition="$(TargetFrameworkVersion) == 'v4.5'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -157,8 +202,23 @@
         </When>
         <Otherwise>
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -225,8 +285,22 @@
             </Reference>
           </ItemGroup>
         </When>
+        <When Condition="$(TargetFrameworkProfile) == 'win+net40+sl40+wp7' And $(TargetPlatformIdentifier) == 'Portable' And $(TargetPlatformVersion) == '7.0'">
+          <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\portable-win+net40+sl40+wp7\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+          </ItemGroup>
+        </When>
         <Otherwise>
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\portable-win+net40+sl40+wp7\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\portable-net40+sl5+wp8+win8\FSharp.Data.dll</HintPath>
               <Private>True</Private>
@@ -248,8 +322,23 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'MonoAndroid'">
       <ItemGroup>
+        <Reference Include="Common.Logging.Core">
+          <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Common.Logging">
+          <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="FSharp.Data">
           <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="HttpSignatures">
+          <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -272,8 +361,23 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'MonoTouch'">
       <ItemGroup>
+        <Reference Include="Common.Logging.Core">
+          <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Common.Logging">
+          <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="FSharp.Data">
           <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="HttpSignatures">
+          <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -298,8 +402,23 @@
       <Choose>
         <When Condition="$(SilverlightVersion) == 'v3.0'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -327,8 +446,23 @@
         </When>
         <When Condition="$(SilverlightVersion) == 'v4.0'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -356,8 +490,23 @@
         </When>
         <Otherwise>
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\portable-net40+sl5+wp8+win8\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -387,8 +536,23 @@
     </When>
     <When Condition="$(TargetFrameworkIdentifier) == 'Windows'">
       <ItemGroup>
+        <Reference Include="Common.Logging.Core">
+          <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Common.Logging">
+          <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="FSharp.Data">
           <HintPath>..\..\packages\FSharp.Data\lib\portable-net40+sl5+wp8+win8\FSharp.Data.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="HttpSignatures">
+          <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -418,8 +582,23 @@
       <Choose>
         <When Condition="$(TargetPlatformVersion) == '7.1'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -447,8 +626,23 @@
         </When>
         <When Condition="$(TargetPlatformVersion) == 'v8.0'">
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\portable-net40+sl5+wp8+win8\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -476,8 +670,23 @@
         </When>
         <Otherwise>
           <ItemGroup>
+            <Reference Include="Common.Logging.Core">
+              <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="Common.Logging">
+              <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
             <Reference Include="FSharp.Data">
               <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+              <Private>True</Private>
+              <Paket>True</Paket>
+            </Reference>
+            <Reference Include="HttpSignatures">
+              <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
               <Private>True</Private>
               <Paket>True</Paket>
             </Reference>
@@ -502,8 +711,23 @@
     </When>
     <Otherwise>
       <ItemGroup>
+        <Reference Include="Common.Logging.Core">
+          <HintPath>..\..\packages\Common.Logging.Core\lib\net40\Common.Logging.Core.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Common.Logging">
+          <HintPath>..\..\packages\Common.Logging\lib\net40\Common.Logging.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="FSharp.Data">
           <HintPath>..\..\packages\FSharp.Data\lib\net40\FSharp.Data.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="HttpSignatures">
+          <HintPath>..\..\packages\HttpSignatures\lib\net45\HttpSignatures.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -535,8 +759,6 @@
     <Compile Include="Models.fs" />
     <Compile Include="PagingResponse.fs" />
     <Compile Include="BIP32Path.fs" />
-    <Compile Include="BIP44.fs" />
-    <Compile Include="BIP32.fs" />
     <Compile Include="BIP39.fs" />
     <Compile Include="Wallet.fs" />
     <Compile Include="Client.fs" />
@@ -566,6 +788,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
   </ItemGroup>
 </Project>
