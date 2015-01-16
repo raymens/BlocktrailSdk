@@ -10,7 +10,7 @@ open FSharp.Data
 /// <summary>
 /// Contains methods to retreive data from the blockchain using the Blocktrail API.
 /// </summary>
-type Client(apiKey, apiSecret) = 
+type BlocktrailSdkClient(apiKey, apiSecret) = 
     
     let request url args = 
         let resp = requestGet url apiKey args
@@ -157,3 +157,6 @@ type Client(apiKey, apiSecret) =
         let convertedResponse = convertToObject<Paging<TransactionUnspentOutput>> response
         new PagingResponse<TransactionUnspentOutput>(address, (third checkedArgs), convertedResponse, 
                                                      getAddressUnspentOutputsResponse)
+
+    member x.CreateNewWallet(identifier : string, password : string, key_index : int) =
+        Wallet.createNewWallet apiKey apiSecret identifier password key_index

@@ -3,6 +3,7 @@ module BlocktrailSdk.Tests
 open BlocktrailSdk
 open NUnit.Framework
 
+(*
 [<Test>]
 let ``Test whatever``() =
     let signingString = "(request-target): get /path?query=3\ndate: today"
@@ -10,9 +11,6 @@ let ``Test whatever``() =
 
     let shahed = Wallet.sign signingString secret
     let signatureSigned = Wallet.base64 shahed
-
-    
-
 
     Assert.AreEqual(signatureSigned, "SFlytCGpsqb/9qYaKCQklGDvwgmrwfIERFnwt+yqPJw=")
 
@@ -38,7 +36,7 @@ let ``Test vector``() =
     let test1_key_calc = Wallet.hexDecode test1_key
     let test1_data_calc = Wallet.hexDecode test1_data
 
-    let res = Wallet.generateHMACSHA256 test1_data_calc test1_key_calc
+    let res = Wallet.calculateHMACSHA256 test1_data_calc test1_key_calc
     let res_string = Wallet.convertByteArray2String res
 
     Assert.AreEqual(res_string, test1_digest)
@@ -79,4 +77,4 @@ let ``00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947 has 849 r
     let specificBlock = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
     let transactions = specificBlock.GetTransactions(1, 100, "asc")
 
-    Assert.AreEqual(849, transactions.Total)*)
+    Assert.AreEqual(849, transactions.Total)*)*)

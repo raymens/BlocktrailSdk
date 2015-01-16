@@ -229,3 +229,40 @@ type Block = {
     MiningpoolUrl : string 
     [<JsonProperty("miningpool_slug")>]
     MiningpoolSlug : string }
+
+/// <summary>
+/// Combination of a BIP32 key with the BIP32 path
+/// </summary>
+type HDKey = {
+    [<JsonProperty("key")>]
+    Key : string
+    [<JsonProperty("path")>]
+    Path : string }
+
+/// <summary>
+/// Record to be sent to the Blocktrail API to create a new wallet
+/// </summary>
+type CreateWalletRequest = {
+    [<JsonProperty("identifier")>]
+    Identifier : string
+    [<JsonProperty("primary_public_key")>]
+    PrimaryPublicKey : HDKey
+    [<JsonProperty("backup_public_key")>]
+    BackupPublicKey : HDKey
+    [<JsonProperty("primary_mnemonic")>]
+    PrimaryMnemonic : string
+    [<JsonProperty("checksum")>]
+    Checksum : string
+    [<JsonProperty("key_index")>]
+    KeyIndex : int }
+
+/// <summary>
+/// Response from the Blocktrail API for a new wallet request
+/// </summary>
+type CreateWalletResponse = { 
+    [<JsonProperty("blocktrail_public_keys")>]
+    BlocktrailPublicKeys : HDKey array
+    [<JsonProperty("key_index")>]
+    KeyIndex : int
+    [<JsonProperty("upgrade_key_index")>]
+    UpgradeKeyIndex : string }
