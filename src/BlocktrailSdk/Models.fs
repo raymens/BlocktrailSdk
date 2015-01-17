@@ -259,10 +259,50 @@ type CreateWalletRequest = {
 /// <summary>
 /// Response from the Blocktrail API for a new wallet request
 /// </summary>
-type CreateWalletResponse = { 
+type CreateWalletResponseRawSuccess = { 
     [<JsonProperty("blocktrail_public_keys")>]
-    BlocktrailPublicKeys : HDKey array
+    BlocktrailPublicKeys : (string list) list
     [<JsonProperty("key_index")>]
     KeyIndex : int
     [<JsonProperty("upgrade_key_index")>]
     UpgradeKeyIndex : string }
+
+/// <summary>
+/// Response from the Blocktrail API for a new wallet request
+/// </summary>
+type CreateWalletResponseSuccess = { 
+    [<JsonProperty("blocktrail_public_keys")>]
+    BlocktrailPublicKeys : HDKey list
+    [<JsonProperty("key_index")>]
+    KeyIndex : int
+    [<JsonProperty("upgrade_key_index")>]
+    UpgradeKeyIndex : string }
+
+/// Error message returned by the Blocktrail API
+type HttpErrorMessage = {
+    [<JsonProperty("code")>]
+    Code : string
+    [<JsonProperty("msg")>]
+    Message : string }
+
+///
+type CreateWalletResponse =
+    | Succes of CreateWalletResponseSuccess
+    | Error of HttpErrorMessage
+
+/// Wallet type to hold all required information
+type Wallet = {
+    Identifier : string
+    PrimaryMnemonic : string
+    PrimaryPrivateKey : NBitcoin.ExtKey
+    BackupPublicKey : NBitcoin.ExtPubKey
+    KeyIndex : int
+    BlocktrailPublicKeys : HDKey list
+    Network : string
+    }
+
+type DeleteWalletRequest = {
+    [<JsonProperty("checksum")>]
+    Checksum : string    
+    [<JsonProperty("signature")>]
+    Signature : string }

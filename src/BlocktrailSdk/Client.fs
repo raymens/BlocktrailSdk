@@ -158,5 +158,12 @@ type BlocktrailSdkClient(apiKey, apiSecret) =
         new PagingResponse<TransactionUnspentOutput>(address, (third checkedArgs), convertedResponse, 
                                                      getAddressUnspentOutputsResponse)
 
+    /// Create a new wallet
     member x.CreateNewWallet(identifier : string, password : string, key_index : int) =
-        Wallet.createNewWallet apiKey apiSecret identifier password key_index
+        match Wallet.createNewWallet apiKey apiSecret identifier password key_index with
+        | Some(w) -> w
+        | None -> failwith "Error during creation of wallet"
+
+    /// Delete an existing wallet
+    member x.DeleteWallet(wallet : Wallet) =
+        Wallet.deleteWallet x.ApiKey apiSecret wallet

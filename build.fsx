@@ -75,6 +75,7 @@ let genFSAssemblyInfo (projectPath) =
     CreateFSharpAssemblyInfo fileName
       [ Attribute.Title (projectName)
         Attribute.Product project
+        Attribute.InternalsVisibleTo "BlocktrailSdk.Tests"
         Attribute.Description summary
         Attribute.Version release.AssemblyVersion
         Attribute.FileVersion release.AssemblyVersion ]

@@ -1,4 +1,4 @@
-﻿module BIP39
+﻿module internal BlocktrailSdk.BIP39
 
 open PWDTK_DOTNET451
 open System
@@ -10,19 +10,11 @@ open System
 /// @return string                       hex Entropy
 let generateEntropy (size : int) : string = 
     if size % 32 <> 0 then failwith "Entropy must be in a multiple of 32"
-    (*
-    {
-        if ($size % 32 !== 0) {
-            throw new \Exception("Entropy must be in a multiple of 32");
-        }
 
-        return bin2hex(mcrypt_create_iv($size / 8, \MCRYPT_DEV_URANDOM));
-    }
-    *)
-    let generator = System.Security.Cryptography.RandomNumberGenerator.Create()
+    let generator = System.Security.Cryptography.RNGCryptoServiceProvider.Create()
     let data : byte array = Array.zeroCreate size
     generator.GetBytes(data)
-    data |> Array.fold (fun a x -> a + x.ToString("X2")) ""
+    convertByteArray2String data
 
 /// Create Mnemonic from Entropy
 ///

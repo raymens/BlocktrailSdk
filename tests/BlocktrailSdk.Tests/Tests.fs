@@ -2,6 +2,7 @@ module BlocktrailSdk.Tests
 
 open BlocktrailSdk
 open NUnit.Framework
+open BlocktrailSdk.Models
 
 (*
 [<Test>]
@@ -15,66 +16,38 @@ let ``Test whatever``() =
     Assert.AreEqual(signatureSigned, "SFlytCGpsqb/9qYaKCQklGDvwgmrwfIERFnwt+yqPJw=")
 
     //let signature = (sprintf """keyId="%s",algorithm="%s",headers="%s",signature="%s" """ key "hmac-sha256" "(request-target) date" signatureSigned).TrimEnd()
-    
+*)
 
 
 
 [<Test>]
 let ``Test byte conversion``() = 
     let test1_key = "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b"
-    let test1_key_calc = Wallet.hexDecode test1_key
-    let res = Wallet.convertByteArray2String test1_key_calc
+    let test1_key_calc = hexDecode test1_key
+    let res = convertByteArray2String test1_key_calc
 
     Assert.AreEqual(test1_key, res)
 
 [<Test>]
-let ``Test vector``() = 
-    let test1_key = "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b"
-    let test1_data = "4869205468657265"
-    let test1_digest = "b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7"
+let ``Test RFC 4231 HMAC-SHA256 vectors``() = 
+    let tests = [("0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b", 
+                  "4869205468657265", 
+                  "b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7");
+                 ("4a656665", 
+                  "7768617420646f2079612077616e7420666f72206e6f7468696e673f", 
+                  "5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843");
+                 ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 
+                  "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", 
+                  "773ea91e36800e46854db8ebd09181a72959098b3ef8c122d9635514ced565fe");
+                 ("0102030405060708090a0b0c0d0e0f10111213141516171819",
+                  "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                  "82558a389a443c0ea4cc819899f2083a85f0faa3e578f8077a2e3ff46729665b") ]
 
-    let test1_key_calc = Wallet.hexDecode test1_key
-    let test1_data_calc = Wallet.hexDecode test1_data
+    let check key data (result : string) =
+        let decodedKey = hexDecode key
+        let decodedData = hexDecode data
+        let calculatedResult = calculateHMACSHA256 decodedData decodedKey 
+        Assert.AreEqual(result, convertByteArray2String calculatedResult)
 
-    let res = Wallet.calculateHMACSHA256 test1_data_calc test1_key_calc
-    let res_string = Wallet.convertByteArray2String res
+    tests |> List.iter (fun (key, data, result) -> check key data result)
 
-    Assert.AreEqual(res_string, test1_digest)
-
-
-(*
-[<Test>]
-let ``5<btc> returns 500000000<sat>``() = 
-    let input = 5m<BlocktrailClient.btc>
-    let result = BlocktrailClient.toSatoshi input
-    Assert.AreEqual(500000000, result)
-
-[<Test>]
-let ``0.000025<btc> returns 2500<sat>``() = 
-    let input = 0.000025m<BlocktrailClient.btc>
-    let result = BlocktrailClient.toSatoshi input
-    Assert.AreEqual(2500, result)
-
-[<Test>]
-let ``0.000025<btc> returns 0.000025<btc> reconverted``() = 
-    let input = 0.000025m<BlocktrailClient.btc>
-    let result1 = BlocktrailClient.toSatoshi input
-    let result2 = BlocktrailClient.toBTC result1
-    Assert.AreEqual(0.000025m, result2)
-
-[<Test>]
-let ``330000<sat> returns 0.0033<btc>``() = 
-    let input = 330000<BlocktrailClient.sat>
-    let result = BlocktrailClient.toBTC input
-    Assert.AreEqual(0.0033m, result)
-*)
-
-(*
-BlocktrailSdk.Config.ApiKey <- "";
-
-
-let ``00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947 has 849 results``() = 
-    let specificBlock = BlocktrailSdk.Client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");
-    let transactions = specificBlock.GetTransactions(1, 100, "asc")
-
-    Assert.AreEqual(849, transactions.Total)*)*)
