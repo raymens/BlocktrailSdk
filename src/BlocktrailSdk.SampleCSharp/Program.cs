@@ -8,13 +8,14 @@ namespace BlocktrailSdk.SampleCSharp
     {
         static void Main(string[] args)
         {
-            string apiKey = "API_KEY";
-            string apiSecret = "API_SECRET";
+            string apiKey = "";
+            string apiSecret = "";
 
             var client = new BlocktrailSdkClient(apiKey, apiSecret);
 
-            var result = client.CreateNewWallet("testwallet", "test", 0);
-            
+            var createResult = client.CreateNewWallet("testwallet10", "test", 0);
+            var deleteResult = client.DeleteWallet(createResult);
+
             /*
 
             Block specificBlock = client.GetBlock("00000000000000000b0d6b7a84dd90137757db3efbee2c4a226a802ee7be8947");

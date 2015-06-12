@@ -1,6 +1,5 @@
 ﻿module internal BlocktrailSdk.Wallet
 
-open FSharp.Data
 open HttpSignatures
 open BlocktrailSdk.Models
 
@@ -48,18 +47,23 @@ let sign (str : string) (key : string) : byte array =
 /// Calculate the Authorization header, Signature header and signature string of a request.
 /// Headers: (request-target, Date and Content-MD5 are used to calculate the signature.
 /// (specification: http://tools.ietf.org/html/draft-cavage-http-signatures-03)
-let signLib (api_key : string) (secret : string) (md5 : string) date path =
+let signLib (api_key : string) (secret : string) (httpMethod : string) (md5 : string) date path =
     let signer = new HttpSigner(new AuthorizationParser(), new HttpSignatureStringExtractor());
+
+    let getHttpMethod = function 
+        | "delete" -> System.Net.Http.HttpMethod.Delete 
+        | "post"->  System.Net.Http.HttpMethod.Post
+        | _ ->  System.Net.Http.HttpMethod.Get
 
     let request = new Request();
     request.Path <- path
-    request.Method <- System.Net.Http.HttpMethod.Post
+    request.Method <- getHttpMethod httpMethod
     request.SetHeader("Date", date);
     request.SetHeader("Content-md5", md5);
 
     let spec = new SignatureSpecification()
     spec.Algorithm <- "hmac-sha256"
-    spec.Headers <- [| "(request-target)"; "date";  "content-md5" |] |> Seq.ofArray
+    spec.Headers <- [| "(request-target)"; "content-md5"; "date"  |] |> Seq.ofArray
     spec.KeyId <- api_key
 
     let secret = base64 (System.Text.ASCIIEncoding.ASCII.GetBytes(secret))
@@ -79,29 +83,52 @@ let signLib (api_key : string) (secret : string) (md5 : string) date path =
 /// Send a wallet delete request
 let sendDeleteWallet key secret identifier checksumAddress checksumSignature =
     let partialPath = sprintf "wallet/%s" identifier
-    let path = sprintf "v1/tBTC/wallet/%s?api_key=%s" identifier key    
+    let path = sprintf "/v1/tBTC/wallet/%s?api_key=%s" identifier key    
     let data = { Checksum = checksumAddress; Signature = checksumSignature }
     let jsonData = jsonEncode data
-    let md5 = calculateMD5 jsonData
-    
-    let date = rfc1123 System.DateTime.UtcNow
-    let authorizationHeader, signatureSigned, signatureString = signLib key secret md5 date path
-    let signatureHeaderValue = authorizationHeader.Substring(10)
 
-    let headers = [ ("Authorization", authorizationHeader); ("Singature", signatureHeaderValue) ]
-    let response = requestDelete partialPath key jsonData headers
-    response
+    let md5 = calculateMD5 path
+    let date = rfc1123 System.DateTime.UtcNow
+    let authorizationHeader, signatureSigned, signatureString = signLib key secret "delete" md5 date path
+
+    let httpRequest = new System.Net.Http.HttpRequestMessage()
+    httpRequest.Headers.Add("Authorization", authorizationHeader)
+    httpRequest.Headers.Add("Date", date)
+    httpRequest.Headers.Add("User-Agent", userAgent)
+    httpRequest.Method <- System.Net.Http.HttpMethod.Delete
+    httpRequest.RequestUri <- new System.Uri("https://api.blocktrail.com" + path)
+    httpRequest.Content <- new System.Net.Http.StringContent(jsonData)
+    httpRequest.Content.Headers.Add("Content-MD5", md5)
+    httpRequest.Content.Headers.ContentType <- new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")
+    let client = new System.Net.Http.HttpClient()
+    let response = (client.SendAsync(httpRequest)).Result
+
+    let responseString = response.Content.ReadAsStringAsync().Result
+
+//    let md5 = calculateMD5 ("/" + path)
+//    
+//    let date = rfc1123 System.DateTime.UtcNow
+//    let authorizationHeader, signatureSigned, signatureString = signLib key secret md5 date path
+//    let signatureHeaderValue = authorizationHeader.Substring(10)
+//
+//    let headers = [ ("Authorization", authorizationHeader); ("content-md5", md5) ]
+//    let response = requestDelete partialPath key jsonData headers
+    responseString
 
 /// Delete an existing wallet
 let deleteWallet key secret (wallet : Wallet) =
     
     // TODO: Delete wallet
-    let checksum = wallet.PrimaryPrivateKey.Key.PubKey.ToString(NBitcoin.Network.TestNet)
+    let checksum = wallet.PrimaryPrivateKey.PrivateKey.PubKey.ToString(NBitcoin.Network.TestNet)
     //let blabla = new NBitcoin.BitcoinExtKey(wallet.PrimaryPrivateKey, NBitcoin.Network.TestNet)
-    let tx = new NBitcoin.Transaction(checksum)
-    tx.Sign(wallet.PrimaryPrivateKey.Key.GetWif(NBitcoin.Network.TestNet), true)
+    //let bytes = readAsciiBytes checksum
+    //let tx = new NBitcoin.Transaction(bytes)
+    //tx.Sign(wallet.PrimaryPrivateKey.Key.GetWif(NBitcoin.Network.TestNet), true)
 
-    let response = sendDeleteWallet key secret wallet.Identifier checksum (tx.ToHex())
+    let btcSecret = new NBitcoin.BitcoinSecret(wallet.PrimaryPrivateKey.PrivateKey, NBitcoin.Network.TestNet);
+    let signature = btcSecret.PrivateKey.SignMessage(checksum);
+
+    let response = sendDeleteWallet key secret wallet.Identifier checksum signature
 
     0
 
@@ -129,15 +156,12 @@ let sendCreateWallet key secret identifier (primaryPublicKey : HDKey) (backupPub
     let path = "/v1/tBTC/wallet?api_key=" + key
     
     let date = rfc1123 System.DateTime.UtcNow
-    let authorizationHeader, signatureSigned, signatureString = signLib key secret md5 date path
-
-    let signatureHeaderValue = authorizationHeader.Substring(10)
+    let authorizationHeader, signatureSigned, signatureString = signLib key secret "post" md5 date path
 
     let httpRequest = new System.Net.Http.HttpRequestMessage()
     httpRequest.Headers.Add("Authorization", authorizationHeader)
     httpRequest.Headers.Add("Date", date)
     httpRequest.Headers.Add("User-Agent", userAgent)
-    httpRequest.Headers.Add("Signature", signatureHeaderValue)
     httpRequest.Method <- System.Net.Http.HttpMethod.Post
     httpRequest.RequestUri <- new System.Uri("https://api.blocktrail.com" + path)
     httpRequest.Content <- new System.Net.Http.StringContent(jsonData)
@@ -182,7 +206,7 @@ let createNewWallet (key: string) (secret : string) (identifier : string) (passw
     let backupPublicKey = backupPrivateKey.Neuter()
 
     // create a checksum of our private key which we'll later use to verify we used the right password
-    let checksum = primaryPrivateKey.Key.PubKey.ToString(NBitcoin.Network.TestNet)
+    let checksum = primaryPrivateKey.PrivateKey.PubKey.ToString(NBitcoin.Network.TestNet)
 
     // send the public keys to the server to store them
     //  and the mnemonic, which is safe because it's useless without the password

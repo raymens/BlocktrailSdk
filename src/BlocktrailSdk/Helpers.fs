@@ -17,11 +17,6 @@ let userAgent = "raymens-blocktrail-sdk-" + System.AssemblyVersionInformation.Ve
 let requestGet url key args = 
     Http.RequestString(apiEndpoint + url, query = [ "api_key", key ] @ args, httpMethod = "GET", headers = [ HttpRequestHeaders.UserAgent userAgent ])
 
-/// Do a HTTP DELETE request given a specifc api_key, json encoded data and optinal additional headers
-let requestDelete url key stringData headers =
-    let body = HttpRequestBody.TextRequest(stringData)
-    Http.RequestString(apiEndpoint + url, query = [ "api_key", key ], httpMethod = "DELETE", headers = [ HttpRequestHeaders.UserAgent userAgent ] @ headers, body = body)
-
 /// Convert json string to object 'T
 let convertToObject<'T> json = JsonConvert.DeserializeObject<'T>(json)
 
@@ -72,3 +67,53 @@ let calculateHMACSHA256 (data : byte array) (key : byte array) =
 
 /// Convert a DateTime to RFC-1123 for HTTP request headers
 let rfc1123 (date : System.DateTime) = date.ToString("R")
+
+let testRequest : System.Net.Http.HttpRequestMessage =
+    let req = new System.Net.Http.HttpRequestMessage()
+    req.Headers.Host <- "blocktrail.com"
+    req.Headers.Add("Date", rfc1123 System.DateTime.UtcNow)
+    req.Content <- new System.Net.Http.StringContent("""{ "Name": "Raymen" }""")
+    req.Content.Headers.Add("ContentType", "application/json")
+
+    req
+
+let signatureString (request : System.Net.Http.HttpRequestMessage) (headers : string list) =
+    
+    let getValue (req : System.Net.Http.HttpRequestMessage) h =
+        let x = ref Seq.empty
+        let success = req.Headers.TryGetValues(h, x)
+        x.Value |> Seq.head
+
+    let signatureList = headers |> List.map (fun h -> sprintf "%s: %s" h (getValue request h))
+
+    let signatureCollected = System.String.Join(System.Environment.NewLine, List.toArray signatureList)
+
+    printfn "%s" signatureCollected
+    
+signatureString (testRequest) [ "Date"; "Host" ]
+
+/// 
+//TODO: generic request
+let httpRequest url (query : (string * string) list) (httpMethod : string) (headers : (string * string) list) body =
+    let httpRequest = new System.Net.Http.HttpRequestMessage()
+    
+    let messageHeaders = headers |> List.filter (fun (name, _) -> name.StartsWith("Content") = false)
+    let contentHeaders = headers |> List.filter (fun (name, _) -> name.StartsWith("Content"))
+
+    messageHeaders |> List.iter (fun (name, value) -> httpRequest.Headers.Add(name, value))
+    
+    match httpMethod with
+    | "DELETE" -> httpRequest.Method <- System.Net.Http.HttpMethod.Delete
+    | "GET" -> httpRequest.Method <- System.Net.Http.HttpMethod.Get
+    | "POST" -> httpRequest.Method <- System.Net.Http.HttpMethod.Post
+    | s -> failwithf "HTTP Method not implemented: %s" s
+    
+    httpRequest.RequestUri <- new System.Uri(url)
+    httpRequest.Content <- new System.Net.Http.StringContent(body)
+    
+    contentHeaders |> List.iter (fun (name, value) -> httpRequest.Content.Headers.Add(name, value))
+    
+    use client = new System.Net.Http.HttpClient()
+    let response = (client.SendAsync(httpRequest)).Result
+    
+    (response.IsSuccessStatusCode, (int) response.StatusCode, response.Content.ReadAsStringAsync().Result)
