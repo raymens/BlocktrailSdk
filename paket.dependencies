@@ -8,7 +8,7 @@ nuget FAKE
 nuget SourceLink.Fake
 nuget Newtonsoft.Json
 nuget FSharp.Data
-nuget NBitcoin ~> 1.0.8.19 
+nuget NBitcoin 
 nuget PWDTK
 nuget HttpSignatures
 
